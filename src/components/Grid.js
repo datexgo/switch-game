@@ -1,40 +1,37 @@
 import React from 'react'
 import Cell from './Cell'
-import TapCell from './TapCell'
-import WaitCell from './WaitCell'
 
 const Grid = (props) => {
 
-  let getCellComponent = (cell, key) => {
-    switch (cell.type) {
-      case "CELL_WAIT":
-        return <WaitCell
-          key={key}
-          cell={cell}
-          size={cell.size}
-          countdown={cell.countdown}
-        />
+  let getAvailableWindowSize = () => {
+    let availHeight = window.innerHeight - 200
+    return window.innerWidth > availHeight
+      ? availHeight
+      : window.innerWidth
+  }
 
-      case "CELL_TAP":
-        return <TapCell
-          key={key}
-          cell={cell}
-          size={cell.size}
-          countdown={cell.countdown}
-        />
+  let getNumberOfCells = () => {
+    let size = props.state.level + 1
+    return size * size
+  }
 
-      default:
-        <Cell key={key} cell={cell} size={cell.size} />
+  let getCellSize = () => {
+    return Math.floor(getAvailableWindowSize() / Math.sqrt(getNumberOfCells()))
+  }
+
+  let cells = new Array(getNumberOfCells()).fill(props.state)
+
+  let getStyle = () => {
+    return {
+      width: getAvailableWindowSize(),
+      height: getAvailableWindowSize(),
+      margin: "0 auto"
     }
   }
 
-  let getStyle = () => {
-    //...
-  }
-
   return <div className="grid" style={getStyle()}>{
-    cells$.map((cell, i) => {
-      return getCellComponent(cell, i)
+    cells.map((cell, i) => {
+      return <Cell cell={cell} size={getCellSize()} key={i} />
     })
   }</div>
 

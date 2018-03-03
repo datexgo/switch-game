@@ -1,0 +1,17 @@
+.game {
+  text-align: center;
+}
+
+.cell {
+  position: relative;
+}
+
+.inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: green;
+  margin: .2vw .2vw;
+}

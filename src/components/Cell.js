@@ -15,14 +15,15 @@ const Cell = (props) => {
       height: `${props.size}px`,
       fontSize: `${Math.round(props.size / 4)}px`,
       lineHeight: `${Math.round(props.size / 2.2)}px`,
-      backgroundColor: props.color
+      backgroundColor: props.cell.color,
+      float: "left"
     }
   }
 
   return <div className="cell" onClick={handleClick} style={getStyle()}>
     <div className="inner">
-      {props.label ? <div>{props.label}</div> : null}
-      {props.countdown ? <div>{props.countdown}</div> : null}
+      {props.cell.label ? <div>{props.cell.label}</div> : null}
+      {props.cell.countdown ? <div>{props.cell.countdown}</div> : null}
     </div>
   </div>
 }
