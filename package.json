@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "kefir": "^3.8.1",
+    "ramda": "^0.25.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts": "^1.1.1"
