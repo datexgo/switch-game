@@ -10,16 +10,9 @@ const Grid = (props) => {
       : window.innerWidth
   }
 
-  let getNumberOfCells = () => {
-    let size = props.state.level + 1
-    return size * size
-  }
-
   let getCellSize = () => {
-    return Math.floor(getAvailableWindowSize() / Math.sqrt(getNumberOfCells()))
+    return Math.floor(getAvailableWindowSize() / Math.sqrt(props.state.cells.length))
   }
-
-  let cells = new Array(getNumberOfCells()).fill(props.state)
 
   let getStyle = () => {
     return {
@@ -30,8 +23,8 @@ const Grid = (props) => {
   }
 
   return <div className="grid" style={getStyle()}>{
-    cells.map((cell, i) => {
-      return <Cell cell={cell} size={getCellSize()} key={i} />
+    props.state.cells.map((cell, i) => {
+      return <Cell cell={cell} size={getCellSize()} onClick={props.onClick} key={i} />
     })
   }</div>
 

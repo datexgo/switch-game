@@ -4,6 +4,7 @@
 
 .cell {
   position: relative;
+  float: left;
 }
 
 .inner {
@@ -12,6 +13,18 @@
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: green;
+  color: #fff;
   margin: .2vw .2vw;
+}
+
+.tap {
+  background-color: green;
+}
+
+.wait {
+  background-color: red;
+}
+
+.disabled {
+  background-color: lightgray;
 }
