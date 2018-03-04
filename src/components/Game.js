@@ -48,24 +48,22 @@ class Game extends Component{
     })
   }
 
-  switchCellTo = (cell, type) => {
+  switchCellTo = (cell, type, sec) => {
     let { cells } = this.state
     cells.map((Cell, i) => {
       if (Cell == cell) this.setState({
-        cells: this.replaceAt(cells, i, {type: type, countdown: 5})
+        cells: this.replaceAt(cells, i, {type: type, countdown: sec})
       })
     })
   }
 
   onCellTapped = (cell) => {
-    this.switchCellTo(cell, "WAIT")
-  }
-
-  componentWillMount() {
-    this.initCells(this.getNumberOfCells())
+    if (cell.type == "off") return
+    this.switchCellTo(cell, "WAIT", 5)
   }
 
   componentDidMount() {
+    this.initCells(this.getNumberOfCells())
     setTimeout(() => {
       this.activateNewCell()
     }, 2000)
