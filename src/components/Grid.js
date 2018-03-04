@@ -24,7 +24,14 @@ const Grid = (props) => {
 
   return <div className="grid" style={getStyle()}>{
     props.state.cells.map((cell, i) => {
-      return <Cell cell={cell} size={getCellSize()} onClick={props.onClick} key={i} />
+
+      return <Cell
+        cell={cell}
+        size={getCellSize()}
+        countdown={cell.type == "off" ? null : cell.countdown}
+        onClick={props.onClick}
+        key={i}
+      />
     })
   }</div>
 

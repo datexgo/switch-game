@@ -27,7 +27,7 @@ const Cell = (props) => {
       "disabled": props.cell.type == "off"
     })}>
       {props.cell.type == "off" ? null : <div>{props.cell.type}</div>}
-      {props.cell.countdown ? <div>{props.cell.countdown}</div> : null}
+      {props.countdown ? <div>{props.countdown}</div> : null}
     </div>
   </div>
 }

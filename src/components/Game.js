@@ -20,7 +20,7 @@ class Game extends Component{
 
   initCells = (numberOfCells) => {
     let cells = R.range(0, numberOfCells).map(() => {
-      return {type: "off"}
+      return {type: "off", countdown: null}
     })
     this.setState({ cells })
   }
@@ -44,7 +44,7 @@ class Game extends Component{
     if (offIndexes.length == 0) return false
     let randomIndex =  Math.floor(Math.random() * offIndexes.length)
     this.setState({
-      cells: this.replaceAt(cells, offIndexes[randomIndex], {type: "TAP", countdown: 3})
+      cells: this.replaceAt(cells, offIndexes[randomIndex], {type: "WAIT", countdown: 5})
     })
   }
 
@@ -58,7 +58,7 @@ class Game extends Component{
   }
 
   onCellTapped = (cell) => {
-    if (cell.type == "off") return
+    if (cell.type == "off" || cell.type == "WAIT") return
     this.switchCellTo(cell, "WAIT", 5)
   }
 
