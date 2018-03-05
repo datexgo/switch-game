@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Grid from './Grid'
 import * as R from 'ramda'
 import K from 'kefir'
+import getNumberOfCells from '../helpers/getNumberOfCells'
+import replaceAt from '../helpers/replaceAt'
 import '../styles/styles.css'
 
 class Game extends Component{
@@ -11,11 +13,6 @@ class Game extends Component{
       cells: [],
       level: 1
     }
-  }
-
-  getNumberOfCells = () => {
-    let size = this.state.level + 1
-    return size * size
   }
 
   initCells = (numberOfCells) => {
@@ -32,19 +29,13 @@ class Game extends Component{
     }, [])
   }
 
-  replaceAt = (list, index, value) => {
-    let start = list.slice(0, index)
-    let end = list.slice(index + 1, list.length)
-    return start.concat(value, end)
-  }
-
   activateNewCell = () => {
     let { cells } = this.state
     let offIndexes = this.findOffIndexes()
     if (offIndexes.length == 0) return false
     let randomIndex =  Math.floor(Math.random() * offIndexes.length)
     this.setState({
-      cells: this.replaceAt(cells, offIndexes[randomIndex], {type: "WAIT", countdown: 5})
+      cells: replaceAt(cells, offIndexes[randomIndex], {type: "WAIT", countdown: 5})
     })
   }
 
@@ -52,7 +43,7 @@ class Game extends Component{
     let { cells } = this.state
     cells.map((Cell, i) => {
       if (Cell == cell) this.setState({
-        cells: this.replaceAt(cells, i, {type: type, countdown: sec})
+        cells: replaceAt(cells, i, {type: type, countdown: sec})
       })
     })
   }
@@ -63,7 +54,7 @@ class Game extends Component{
   }
 
   componentDidMount() {
-    this.initCells(this.getNumberOfCells())
+    this.initCells(getNumberOfCells(this.state.level))
     setTimeout(() => {
       this.activateNewCell()
     }, 2000)
