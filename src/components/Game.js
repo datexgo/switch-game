@@ -3,7 +3,6 @@ import Grid from './Grid'
 import * as R from 'ramda'
 import K from 'kefir'
 import getNumberOfCells from '../helpers/getNumberOfCells'
-import replaceAt from '../helpers/replaceAt'
 import '../styles/styles.css'
 
 class Game extends Component{
@@ -35,7 +34,7 @@ class Game extends Component{
     if (offIndexes.length == 0) return false
     let randomIndex =  Math.floor(Math.random() * offIndexes.length)
     this.setState({
-      cells: replaceAt(cells, offIndexes[randomIndex], {type: "WAIT", countdown: 5})
+      cells: R.update(offIndexes[randomIndex], {type: "TAP", countdown: 3}, cells)
     })
   }
 
@@ -43,7 +42,7 @@ class Game extends Component{
     let { cells } = this.state
     cells.map((Cell, i) => {
       if (Cell == cell) this.setState({
-        cells: replaceAt(cells, i, {type: type, countdown: sec})
+        cells: R.update(i, {type: type, countdown: sec}, cells)
       })
     })
   }
