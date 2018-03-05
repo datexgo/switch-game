@@ -20,12 +20,8 @@ const Cell = (props) => {
   }
 
   return <div className="cell" onClick={handleClick} style={getStyle()}>
-    <div className={classNames({
-      "inner": true,
-      "wait": props.cell.type == "WAIT",
-      "tap": props.cell.type == "TAP",
-      "disabled": props.cell.type == "off"
-    })}>
+    <div className={classNames(props.cell.type,
+      {"disabled": props.cell.type == "off", "inner": true})}>
       {props.cell.type == "off" ? null : <div>{props.cell.type}</div>}
       {props.countdown ? <div>{props.countdown}</div> : null}
     </div>
