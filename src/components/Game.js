@@ -8,16 +8,17 @@ import '../styles/styles.css'
 class Game extends Component{
   constructor(props) {
     super(props)
+    this.id = []
+    this.counter = 0
     this.state = {
       cells: [],
-      level: 1,
-      countdown: new Array(100).fill(5)
+      level: 1
     }
   }
 
   initCells = (numberOfCells) => {
     let cells = R.range(0, numberOfCells).map(() => {
-      return {type: "off", countdown: null}
+      return {type: "off", countdown: null, index: null}
     })
     this.setState({ cells })
   }
@@ -30,40 +31,53 @@ class Game extends Component{
   }
 
   activateNewCell = () => {
-    let { cells } = this.state
     let offIndexes = this.findOffIndexes()
     if (offIndexes.length == 0) return false
     let randomIndex =  Math.floor(Math.random() * offIndexes.length)
     let newCellIndex = offIndexes[randomIndex]
-    this.setState({
-      cells: R.update(newCellIndex, {type: "WAIT", countdown: 5}, cells)
-    })
-    console.log(this.state.cells[newCellIndex].countdown)
-    let timerId = setInterval(() => {
+    this.waitUpdate(newCellIndex)
+  }
+
+  waitUpdate = (index) => {
+    let { cells } = this.state
+    this.switchCellTo(cells[index], "WAIT", 5)
+    let id = setInterval(() => {
       this.setState({
-        cells: R.update(newCellIndex, {type: "WAIT", countdown: R.dec(this.state.cells[newCellIndex].countdown)}, cells)
+        cells: R.update(index, {type: "WAIT", countdown: R.dec(this.state.cells[index].countdown), index: index}, cells)
       })
+      if (this.state.cells[index].countdown < 1) {
+        clearInterval(id)
+        this.tapUpdate(index)
+      }
     }, 1000)
   }
 
-  onSecondElapsed = () => {
-
+  tapUpdate = (index) => {
+    let { cells } = this.state
+    this.switchCellTo(this.state.cells[index], "TAP", 3, index)
+    let id = setInterval(() => {
+      this.setState({
+        cells: R.update(index, {type: "TAP", countdown: R.dec(this.state.cells[index].countdown), index: index}, cells)
+      })
+    }, 1000)
+    this.id.push(id)
   }
 
-  switchCellTo = (cell, type, sec) => {
+  switchCellTo = (cell, type, sec, index) => {
     let { cells } = this.state
     cells.map((Cell, i) => {
       if (Cell == cell) this.setState({
-        cells: R.update(i, {type: type, countdown: sec}, cells),
-        countdown: R.update(i, sec, this.state.countdown)
+        cells: R.update(i, {type: type, countdown: sec, index: index}, cells)
       })
     })
   }
 
   onCellTapped = (cell) => {
     if (cell.type == "off" || cell.type == "WAIT") return
-    this.switchCellTo(cell, "WAIT", 5)
-    setTimeout(this.activateNewCell, 1000)
+    clearInterval(this.id[this.counter])
+    this.counter++
+    this.waitUpdate(cell.index)
+    //setTimeout(this.activateNewCell, 1000)
   }
 
   componentDidMount() {

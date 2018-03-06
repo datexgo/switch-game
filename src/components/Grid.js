@@ -21,6 +21,7 @@ const Grid = (props) => {
         size={getCellSize(props.state.cells.length)}
         countdown={cell.type == "off" ? null : cell.countdown}
         onClick={props.onClick}
+        index={cell.index}
         key={i}
       />
     })
