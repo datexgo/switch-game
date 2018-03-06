@@ -10,7 +10,8 @@ class Game extends Component{
     super(props)
     this.state = {
       cells: [],
-      level: 1
+      level: 1,
+      countdown: new Array(100).fill(5)
     }
   }
 
@@ -33,16 +34,28 @@ class Game extends Component{
     let offIndexes = this.findOffIndexes()
     if (offIndexes.length == 0) return false
     let randomIndex =  Math.floor(Math.random() * offIndexes.length)
+    let newCellIndex = offIndexes[randomIndex]
     this.setState({
-      cells: R.update(offIndexes[randomIndex], {type: "TAP", countdown: 3}, cells)
+      cells: R.update(newCellIndex, {type: "WAIT", countdown: 5}, cells)
     })
+    console.log(this.state.cells[newCellIndex].countdown)
+    let timerId = setInterval(() => {
+      this.setState({
+        cells: R.update(newCellIndex, {type: "WAIT", countdown: R.dec(this.state.cells[newCellIndex].countdown)}, cells)
+      })
+    }, 1000)
+  }
+
+  onSecondElapsed = () => {
+
   }
 
   switchCellTo = (cell, type, sec) => {
     let { cells } = this.state
     cells.map((Cell, i) => {
       if (Cell == cell) this.setState({
-        cells: R.update(i, {type: type, countdown: sec}, cells)
+        cells: R.update(i, {type: type, countdown: sec}, cells),
+        countdown: R.update(i, sec, this.state.countdown)
       })
     })
   }
@@ -50,6 +63,7 @@ class Game extends Component{
   onCellTapped = (cell) => {
     if (cell.type == "off" || cell.type == "WAIT") return
     this.switchCellTo(cell, "WAIT", 5)
+    setTimeout(this.activateNewCell, 1000)
   }
 
   componentDidMount() {
