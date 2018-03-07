@@ -1,31 +1,32 @@
-import React from 'react'
-const classNames = require('classnames')
+import React from "react"
+import classNames from "classnames"
 
-const Cell = (props) => {
+let getStyle = (size) =>({
+  width: `${size}px`,
+  height: `${size}px`,
+  fontSize: `${Math.round(size / 4)}px`,
+  lineHeight: `${Math.round(size / 2.2)}px`
+})
 
-  let handleClick = (event) => {
-    event.preventDefault()
-    if (props.onClick) {
-      props.onClick(props.cell)
-    }
-  }
+let Cell = (props) => {
+  let {cell, size, onClick} = props
 
-  let getStyle = () => {
-    return {
-      width: `${props.size}px`,
-      height: `${props.size}px`,
-      fontSize: `${Math.round(props.size / 4)}px`,
-      lineHeight: `${Math.round(props.size / 2.2)}px`
-    }
-  }
-
-  return <div className="cell" onClick={handleClick} style={getStyle()}>
-    <div className={classNames(props.cell.type,
-      {"disabled": props.cell.type == "off", "inner": true})}>
-      {props.cell.type == "off" ? null : <div>{props.cell.type}</div>}
-      {props.countdown ? <div>{props.countdown}</div> : null}
+  return <div className="cell" onClick={onClick} style={getStyle(size)}>
+    <div className={classNames(cell.type, {
+      "disabled": cell.countdown == null,
+      "inner": true,
+    })}>
+      {
+        cell.countdown == null
+          ? null
+          : <div>{cell.countdown}</div>
+      }
     </div>
   </div>
 }
+
+// Cell.propTypes = {
+//   onClick: PT.function.isRequired,
+// }
 
 export default Cell

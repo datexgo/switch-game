@@ -1,6 +1,6 @@
-import getAvailableWindowSize from './getAvailableWindowSize'
+import getAvailableWindowSize from "./getAvailableWindowSize"
 
-const getCellSize = (length) => {
+let getCellSize = (length) => {
   return Math.floor(getAvailableWindowSize() / Math.sqrt(length))
 }
 
