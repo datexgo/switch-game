@@ -1,32 +1,30 @@
-import React from 'react'
-import Cell from './Cell'
-import getCellSize from '../helpers/getCellSize'
-import getAvailableWindowSize from '../helpers/getAvailableWindowSize'
+import React from "react"
+import Cell from "./Cell"
+import getCellSize from "../helpers/getCellSize"
+import getAvailableWindowSize from "../helpers/getAvailableWindowSize"
 
-const Grid = (props) => {
-
-  let getStyle = () => {
-    return {
-      width: getAvailableWindowSize(),
-      height: getAvailableWindowSize(),
-      margin: "0 auto"
-    }
+let getStyle = () => {
+  let size = getAvailableWindowSize()
+  return {
+    width: size,
+    height: size,
+    margin: "0 auto"
   }
-
-  return <div className="grid" style={getStyle()}>{
-    props.state.cells.map((cell, i) => {
-
-      return <Cell
-        cell={cell}
-        size={getCellSize(props.state.cells.length)}
-        countdown={cell.type == "off" ? null : cell.countdown}
-        onClick={props.onClick}
-        index={cell.index}
-        key={i}
-      />
-    })
-  }</div>
-
 }
+
+let Grid = (props) => {
+  let {state, onCellTap} = props
+  let size = getCellSize(state.cells.length)
+
+  return <div className="grid" style={getStyle()}>
+    {state.cells.map((cell, i) =>
+      <Cell cell={cell} size={size} onClick={() => onCellTap(cell)} key={i}/>
+    )}
+  </div>
+}
+
+// Grip.propTypes = {
+//   onCellTap: PT.function.isRequired,
+// }
 
 export default Grid

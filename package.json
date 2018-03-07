@@ -10,6 +10,7 @@
   "author": "Artem Kozyrev",
   "license": "ISC",
   "dependencies": {
+    "@paqmind/ramda": "^0.1.4",
     "classnames": "^2.2.5",
     "kefir": "^3.8.1",
     "ramda": "^0.25.0",

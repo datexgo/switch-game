@@ -1,4 +1,4 @@
-const getNumberOfCells = (lvl) => {
+let getNumberOfCells = (lvl) => {
   let size = lvl + 1
   return size * size
 }

@@ -1,4 +1,4 @@
-const getAvailableWindowSize = () => {
+let getAvailableWindowSize = () => {
   let availHeight = window.innerHeight - 200
   return window.innerWidth > availHeight
     ? availHeight
