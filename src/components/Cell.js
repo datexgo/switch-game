@@ -1,3 +1,4 @@
+
 import React from "react"
 import classNames from "classnames"
 
@@ -16,13 +17,11 @@ let Cell = (props) => {
       "disabled": cell.countdown == null,
       "inner": true,
     })}>
-      <div>{cell.label == 'off' ? null : cell.label}</div>
-      <div>{cell.countdown == null ? null : cell.countdown}</div>
-      {/*{
+      {
         cell.countdown == null
           ? null
           : <div>{cell.countdown}</div>
-      }*/}
+      }
     </div>
   </div>
 }

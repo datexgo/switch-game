@@ -21,16 +21,14 @@ class Game extends Component{
     this.startTimer = null
     this.tickTimer = null
     this.state = {
-      cells: [], // {label :: "WAIT" | "TAP", countdown :: Number | Null, index :: Number}
-      level: 2,
-      lastActivatedCellIndex: null
+      cells: [], // {countdown :: Number | Null, index :: Number}
+      level: 1
     }
   }
 
   initCells = () => {
     let numberOfCells = getNumberOfCells(this.state.level)
     let cells = R.map2((_, i) => ({
-      label: 'off',
       countdown: null,
       index: i,
     }), R.range(0, numberOfCells))
@@ -60,22 +58,7 @@ class Game extends Component{
       this.setState({
         cells: R.map(R.over2("countdown", decNumber), cells)
       })
-      this.onSecondElapsed()
     }, 1000)
-  }
-
-  onSecondElapsed = () => {
-    let {cells} = this.state
-    cells.map((cell) => {
-      if (cell.countdown < 1 && cell.label == "WAIT") {
-        this.setState({
-          cells: R.set2([cell.index, "countdown"], 3, R.set2([cell.index, "label"], "TAP", cells))
-        })
-        if (cell.index == this.state.lastActivatedCellIndex) {
-          setTimeout(() => {this.activateRandomCell()}, 1000)
-        }
-      }
-    })
   }
 
   activateRandomCell = () => {
@@ -86,17 +69,18 @@ class Game extends Component{
       let offCell = pickRandom(offCells)
 
       this.setState({
-        cells: R.set2([offCell.index, "countdown"], 5, R.set2([offCell.index, "label"], "WAIT", cells)), // TODO magic number 5
-        lastActivatedCellIndex: offCell.index
+        cells: R.set2([offCell.index, "countdown"], 5, cells) // TODO magic number 5
       })
     }
   }
 
   onCellTap = (cell) => {
-    if (cell.countdown != null && cell.label != "WAIT") {
+    if (cell.countdown != null) {
       let {cells} = this.state
       this.setState({
-        cells: R.set2([cell.index, "countdown"], 5, R.set2([cell.index, "label"], "WAIT", cells)) // TODO magic number 5
+        cells: R.set2([cell.index, "countdown"], null, cells) // TODO magic number 5
+      }, () => {
+        this.activateRandomCell()
       })
     }
   }
