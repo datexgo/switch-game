@@ -2,18 +2,11 @@ import React, { Component } from "react"
 import Grid from "./Grid"
 import * as R from "@paqmind/ramda"
 import K from "kefir"
+import pickRandom from '../helpers/pickRandom'
+import decNumber from '../helpers/decNumber'
 import getNumberOfCells from "../helpers/getNumberOfCells"
 import "../styles/styles.css"
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
 R.map2 = R.addIndex(R.map)
-
-let rand = (min, max) => min + Math.floor(Math.random() * max)
-
-let pickRandom = (xs) => xs[rand(0, xs.length)]
-
-let decNumber = (x) => R.is(Number, x) ? (x >= 2 ? x - 1 : null) : null
-////////////////////////////////////////////////////////////////////////////////////////////////////
 
 class Game extends Component{
   constructor(props) {
@@ -21,14 +14,16 @@ class Game extends Component{
     this.startTimer = null
     this.tickTimer = null
     this.state = {
-      cells: [], // {countdown :: Number | Null, index :: Number}
-      level: 1
+      cells: [], // {label :: "off" | "WAIT" | "TAP", countdown :: Number | Null, index :: Number}
+      level: 1,
+      lastActivatedCellIndex: null
     }
   }
 
   initCells = () => {
     let numberOfCells = getNumberOfCells(this.state.level)
     let cells = R.map2((_, i) => ({
+      label: "off",
       countdown: null,
       index: i,
     }), R.range(0, numberOfCells))
@@ -55,10 +50,19 @@ class Game extends Component{
   runTicker() {
     this.tickTimer = setInterval(() => {
       let {cells} = this.state
+      let updatedCells = this.waitTimeoutCheck(cells)
       this.setState({
-        cells: R.map(R.over2("countdown", decNumber), cells)
+        cells: R.map(R.over2("countdown", decNumber), updatedCells)
       })
     }, 1000)
+  }
+
+  waitTimeoutCheck = (cells) => {
+    return cells.map(cell => {
+      return cell.countdown == 1 && cell.label == "WAIT"
+        ? {label: "TAP", countdown: 4, index: cell.index}
+        : cell
+    })
   }
 
   activateRandomCell = () => {
@@ -69,18 +73,21 @@ class Game extends Component{
       let offCell = pickRandom(offCells)
 
       this.setState({
-        cells: R.set2([offCell.index, "countdown"], 5, cells) // TODO magic number 5
+        cells: R.set2([offCell.index, "countdown"],
+          5, R.set2([offCell.index, "label"], "WAIT", cells)), // TODO magic number 5
+        lastActivatedCellIndex: offCell.index
       })
     }
+
+    setTimeout(() => {this.activateRandomCell()}, 6000)
   }
 
   onCellTap = (cell) => {
-    if (cell.countdown != null) {
+    if (cell.countdown != null && cell.label != "WAIT") {
       let {cells} = this.state
       this.setState({
-        cells: R.set2([cell.index, "countdown"], null, cells) // TODO magic number 5
-      }, () => {
-        this.activateRandomCell()
+        cells: R.set2([cell.index, "countdown"],
+          5, R.set2([cell.index, "label"], "WAIT", cells)) // TODO magic number 5
       })
     }
   }

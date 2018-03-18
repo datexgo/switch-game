@@ -17,11 +17,8 @@ let Cell = (props) => {
       "disabled": cell.countdown == null,
       "inner": true,
     })}>
-      {
-        cell.countdown == null
-          ? null
-          : <div>{cell.countdown}</div>
-      }
+      <div>{cell.label == "off" ? null : cell.label}</div>
+      <div>{cell.countdown == null ? null : cell.countdown}</div>
     </div>
   </div>
 }
