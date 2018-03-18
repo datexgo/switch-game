@@ -13,20 +13,15 @@
   left: 0;
   bottom: 0;
   right: 0;
-  color: black;
+  color: #fff;
   margin: .2vw .2vw;
   background-color: lightgray;
 }
 
-/*.TAP {*/
-  /*background-color: green;*/
-/*}*/
+.TAP {
+  background-color: green;
+}
 
-/*.WAIT {*/
-  /*background-color: red;*/
-/*}*/
-
-/*.cell.disabled {*/
-  /*background-color: lightgray;*/
-/*}*/
-
+.WAIT {
+  background-color: red;
+}

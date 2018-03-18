@@ -14,8 +14,9 @@ let Cell = (props) => {
 
   return <div className="cell" onClick={onClick} style={getStyle(size)}>
     <div className={classNames(cell.type, {
-      "disabled": cell.countdown == null,
       "inner": true,
+      "WAIT": cell.label == "WAIT",
+      "TAP": cell.label == "TAP"
     })}>
       <div>{cell.label == "off" ? null : cell.label}</div>
       <div>{cell.countdown == null ? null : cell.countdown}</div>
