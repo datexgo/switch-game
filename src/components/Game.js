@@ -13,6 +13,7 @@ class Game extends Component{
     super(props)
     this.startTimer = null
     this.tickTimer = null
+    this.newCellTimer = null
     this.state = {
       cells: [], // {label :: "off" | "WAIT" | "TAP", countdown :: Number | Null, index :: Number}
       level: 1,
@@ -43,7 +44,8 @@ class Game extends Component{
   }
 
   exitGame() {
-    clearInterval(this.startTimer)
+    clearTimeout(this.startTimer)
+    clearTimeout(this.newCellTimer)
     clearInterval(this.tickTimer)
   }
 
@@ -79,7 +81,7 @@ class Game extends Component{
       })
     }
 
-    setTimeout(() => {this.activateRandomCell()}, 6000)
+    this.newCellTimer = setTimeout(() => {this.activateRandomCell()}, 6000)
   }
 
   onCellTap = (cell) => {
