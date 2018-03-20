@@ -56,7 +56,19 @@ class Game extends Component{
       this.setState({
         cells: R.map(R.over2("countdown", decNumber), updatedCells)
       })
+      this.tapTimeoutCheck(cells)
     }, 1000)
+  }
+
+  tapTimeoutCheck = (cells) => {
+    cells.map(cell => {
+      cell.countdown == 1 && cell.label == "TAP" ? this.gameOver() : null
+    })
+  }
+
+  gameOver = () => {
+    this.exitGame()
+    this.initCells()
   }
 
   waitTimeoutCheck = (cells) => {
