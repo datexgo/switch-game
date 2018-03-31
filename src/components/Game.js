@@ -36,7 +36,8 @@ class Game extends Component{
     })
   }
 
-  startGame() {
+  startGame = () => {
+    this.setState({gameOver: false})
     this.initCells()
     this.startTimer = setTimeout(() => {
       this.activateRandomCell()
@@ -118,7 +119,7 @@ class Game extends Component{
 
   render() {
     return <div className="game">
-      <Grid state={this.state} onCellTap={this.onCellTap}/>
+      <Grid state={this.state} onCellTap={this.onCellTap} startGame={this.startGame}/>
     </div>
   }
 }

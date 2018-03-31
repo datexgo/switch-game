@@ -27,7 +27,7 @@ const GameOverMessage = (props) => {
     <div>
       <div>Game Over</div>
       <div>Score: ---</div>
-      <button className="button" style={getButtonStyle(props.size)}>
+      <button className="button" onClick={props.startGame} style={getButtonStyle(props.size)}>
         Start new game
       </button>
     </div>
