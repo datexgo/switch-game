@@ -19,7 +19,7 @@ let Grid = (props) => {
   let size = getCellSize(state.cells.length)
 
   return <div className="grid" style={getStyle()}>
-    <GameOverMessage size={getAvailableWindowSize()}/>
+    <GameOverMessage size={getAvailableWindowSize()} gameOver={state.gameOver}/>
     {state.cells.map((cell, i) =>
       <Cell cell={cell} size={size} onClick={() => onCellTap(cell)} key={i}/>
     )}

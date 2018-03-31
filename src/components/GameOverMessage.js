@@ -1,4 +1,5 @@
 import React from 'react'
+let classNames = require('classnames')
 
 let getStyle = (size) => {
   return {
@@ -19,7 +20,10 @@ let getButtonStyle = (size) => {
 }
 
 const GameOverMessage = (props) => {
-  return <div className="message" style={getStyle(props.size)}>
+  return <div className={classNames({
+    "show-message": props.gameOver,
+    "hide-message": !props.gameOver
+  })} style={getStyle(props.size)}>
     <div>
       <div>Game Over</div>
       <div>Score: ---</div>

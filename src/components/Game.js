@@ -17,7 +17,8 @@ class Game extends Component{
     this.state = {
       cells: [], // {label :: "off" | "WAIT" | "TAP", countdown :: Number | Null, index :: Number}
       level: 1,
-      lastActivatedCellIndex: null
+      lastActivatedCellIndex: null,
+      gameOver: false
     }
   }
 
@@ -67,6 +68,7 @@ class Game extends Component{
   }
 
   gameOver = () => {
+    this.setState({gameOver: true})
     this.exitGame()
     this.initCells()
   }
