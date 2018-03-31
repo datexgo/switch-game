@@ -17,8 +17,8 @@ class Game extends Component{
     this.state = {
       cells: [], // {label :: "off" | "WAIT" | "TAP", countdown :: Number | Null, index :: Number}
       level: 1,
-      lastActivatedCellIndex: null,
-      gameOver: false
+      gameOver: false,
+      score: 0
     }
   }
 
@@ -37,7 +37,10 @@ class Game extends Component{
   }
 
   startGame = () => {
-    this.setState({gameOver: false})
+    this.setState({
+      gameOver: false,
+      score: 0
+    })
     this.initCells()
     this.startTimer = setTimeout(() => {
       this.activateRandomCell()
@@ -69,7 +72,9 @@ class Game extends Component{
   }
 
   gameOver = () => {
-    this.setState({gameOver: true})
+    this.setState({
+      gameOver: true
+    })
     this.exitGame()
     this.initCells()
   }
@@ -91,8 +96,7 @@ class Game extends Component{
 
       this.setState({
         cells: R.set2([offCell.index, "countdown"],
-          5, R.set2([offCell.index, "label"], "WAIT", cells)), // TODO magic number 5
-        lastActivatedCellIndex: offCell.index
+          5, R.set2([offCell.index, "label"], "WAIT", cells)) // TODO magic number
       })
     }
 
@@ -103,6 +107,7 @@ class Game extends Component{
     if (cell.countdown != null && cell.label != "WAIT") {
       let {cells} = this.state
       this.setState({
+        score: this.state.score + 1,
         cells: R.set2([cell.index, "countdown"],
           5, R.set2([cell.index, "label"], "WAIT", cells)) // TODO magic number 5
       })

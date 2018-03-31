@@ -20,13 +20,14 @@ let getButtonStyle = (size) => {
 }
 
 const GameOverMessage = (props) => {
+  let state = props.state
   return <div className={classNames({
-    "show-message": props.gameOver,
-    "hide-message": !props.gameOver
+    "show-message": state.gameOver,
+    "hide-message": !state.gameOver
   })} style={getStyle(props.size)}>
     <div>
       <div>Game Over</div>
-      <div>Score: ---</div>
+      <div>{`Score: ${state.score}`}</div>
       <button className="button" onClick={props.startGame} style={getButtonStyle(props.size)}>
         Start new game
       </button>
