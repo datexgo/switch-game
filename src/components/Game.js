@@ -101,6 +101,15 @@ class Game extends Component{
     }
 
     this.newCellTimer = setTimeout(() => {this.activateRandomCell()}, 6000)
+    this.isLvlComplete(offCells)
+  }
+
+  isLvlComplete = (cells) => {
+    if(!cells.length) {
+      this.exitGame()
+      this.setState({level: this.state.level + 1})
+      this.startGame()
+    }
   }
 
   onCellTap = (cell) => {
