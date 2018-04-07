@@ -15,11 +15,11 @@ let getStyle = () => {
 }
 
 let Grid = (props) => {
-  let {state, onCellTap, startGame} = props
+  let {state, onCellTap, startNewGame} = props
   let size = getCellSize(state.cells.length)
 
   return <div className="grid" style={getStyle()}>
-    <GameMessage size={getAvailableWindowSize()} state={state} startGame={startGame}/>
+    <GameMessage size={getAvailableWindowSize()} state={state} startNewGame={startNewGame}/>
     {state.cells.map((cell, i) =>
       <Cell cell={cell} size={size} onClick={() => onCellTap(cell)} key={i}/>
     )}

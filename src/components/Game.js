@@ -37,15 +37,21 @@ class Game extends Component{
   }
 
   startGame = () => {
-    this.setState({
-      gameOver: false,
-      score: 0
-    })
     this.initCells()
     this.startTimer = setTimeout(() => {
       this.activateRandomCell()
       this.runTicker()
     }, 1000) // TODO magic number
+  }
+
+  startNewGame = () => {
+    this.setState({
+      gameOver: false,
+      score: 0,
+      level: 1
+    }, () => {
+      this.startGame()
+    })
   }
 
   exitGame() {
@@ -133,7 +139,7 @@ class Game extends Component{
 
   render() {
     return <div className="game">
-      <Grid state={this.state} onCellTap={this.onCellTap} startGame={this.startGame}/>
+      <Grid state={this.state} onCellTap={this.onCellTap} startNewGame={this.startNewGame}/>
     </div>
   }
 }
