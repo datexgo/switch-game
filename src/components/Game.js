@@ -17,6 +17,7 @@ class Game extends Component{
     this.state = {
       cells: [], // {label :: "off" | "WAIT" | "TAP", countdown :: Number | Null, index :: Number}
       level: 1,
+      levelComplete: false,
       gameOver: false,
       score: 0
     }
@@ -49,6 +50,15 @@ class Game extends Component{
       gameOver: false,
       score: 0,
       level: 1
+    }, () => {
+      this.startGame()
+    })
+  }
+
+  startNextLevel = () => {
+    this.setState({
+      level: this.state.level + 1,
+      levelComplete: false
     }, () => {
       this.startGame()
     })
@@ -113,8 +123,10 @@ class Game extends Component{
   isLvlComplete = (cells) => {
     if(!cells.length) {
       this.exitGame()
-      this.setState({level: this.state.level + 1})
-      this.startGame()
+      this.setState({
+        levelComplete: true
+      })
+      this.initCells()
     }
   }
 
@@ -139,7 +151,11 @@ class Game extends Component{
 
   render() {
     return <div className="game">
-      <Grid state={this.state} onCellTap={this.onCellTap} startNewGame={this.startNewGame}/>
+      <Grid state={this.state}
+            onCellTap={this.onCellTap}
+            startNewGame={this.startNewGame}
+            startNextLevel={this.startNextLevel}
+      />
     </div>
   }
 }
