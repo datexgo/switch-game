@@ -22,8 +22,8 @@ let getButtonStyle = (size) => {
 const GameMessage = (props) => {
   let state = props.state
   return <div className={classNames({
-    "show-message": state.gameOver || state.levelComplete,
-    "hide-message": !state.gameOver && !state.levelComplete
+    "show-message": state.gameOver || state.levelComplete || state.startingMessage,
+    "hide-message": !state.gameOver && !state.levelComplete && !state.startingMessage
   })} style={getStyle(props.size)}>
     <div>
       <div>
@@ -32,12 +32,14 @@ const GameMessage = (props) => {
             ? "Game Over"
             : state.levelComplete
               ? `Level ${state.level} complete!`
-              : null
+              : state.startingMessage
+                ? "Start new game"
+                : null
         }
       </div>
       <div>{`Score: ${state.score}`}</div>
-      <button className="button" onClick={state.gameOver ? props.startNewGame : props.startNextLevel} style={getButtonStyle(props.size)}>
-        {state.gameOver ? "Start new game" : "Start next level"}
+      <button className="button" onClick={state.gameOver || state.startingMessage ? props.startNewGame : props.startNextLevel} style={getButtonStyle(props.size)}>
+        {state.gameOver || state.startingMessage ? "Start new game" : "Start next level"}
       </button>
     </div>
   </div>

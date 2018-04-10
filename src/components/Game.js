@@ -18,6 +18,7 @@ class Game extends Component{
       cells: [], // {label :: "off" | "WAIT" | "TAP", countdown :: Number | Null, index :: Number}
       level: 1,
       levelComplete: false,
+      startingMessage: true,
       gameOver: false,
       score: 0
     }
@@ -33,7 +34,6 @@ class Game extends Component{
 
     this.setState({
       cells
-      // +gameStarted: true
     })
   }
 
@@ -47,6 +47,7 @@ class Game extends Component{
 
   startNewGame = () => {
     this.setState({
+      startingMessage: false,
       gameOver: false,
       score: 0,
       level: 1
@@ -142,7 +143,8 @@ class Game extends Component{
   }
 
   componentDidMount() {
-    this.startGame()
+    //this.startGame()
+    this.initCells()
   }
 
   componentWillUnmount() {
