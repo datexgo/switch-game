@@ -1,14 +1,17 @@
 .game {
   text-align: center;
+  user-select: none;
 }
 
 .cell {
   position: relative;
   float: left;
+  cursor: pointer;
 }
 
 .inner {
   position: absolute;
+  border-radius:3%;
   top: 0;
   left: 0;
   bottom: 0;
@@ -25,6 +28,7 @@
   text-decoration: none;
   border: none;
   box-shadow: none;
+  cursor: pointer;
   outline: 0 !important;
 }
 
