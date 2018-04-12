@@ -5,7 +5,7 @@ let getStyle = (size) => {
   return {
     width: size,
     height: size,
-    fontSize: `${Math.round(size / 5)}px`
+    fontSize: `${Math.round(size / 6)}px`
   }
 }
 
