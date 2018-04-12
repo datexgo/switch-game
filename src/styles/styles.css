@@ -1,6 +1,7 @@
 .game {
   text-align: center;
   user-select: none;
+  font-family: 'Helvetica', sans-serif, 'Arial';
 }
 
 .cell {
@@ -11,7 +12,7 @@
 
 .inner {
   position: absolute;
-  border-radius:3%;
+  border-radius: 2%;
   top: 0;
   left: 0;
   bottom: 0;
