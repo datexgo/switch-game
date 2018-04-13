@@ -44,7 +44,7 @@ const GameMessage = (props) => {
             : state.levelComplete
               ? "Get ready!"
               : state.startingMessage
-                ? <div className="opt">
+                ? <div className="rules">
                     <div>Tap a tile when it turns green.</div>
                     <div>You win when no more tile is available.</div>
                     <div>Don't miss any or the game ends!</div>
