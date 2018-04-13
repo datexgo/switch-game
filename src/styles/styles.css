@@ -22,6 +22,10 @@
   background-color: lightgray;
 }
 
+.opt {
+  font-size: .4em;
+}
+
 .button {
   background-color: blue;
   color: #fff;

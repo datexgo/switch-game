@@ -5,7 +5,7 @@ let getStyle = (size) => {
   return {
     width: size,
     height: size,
-    fontSize: `${Math.round(size / 6)}px`
+    fontSize: `${Math.round(size / 7)}px`
   }
 }
 
@@ -33,11 +33,25 @@ const GameMessage = (props) => {
             : state.levelComplete
               ? `Level ${state.level} complete!`
               : state.startingMessage
-                ? "Start new game"
+                ? "How to play?"
                 : null
         }
       </div>
-      <div>{`Score: ${state.score}`}</div>
+      <div>
+        {
+          state.gameOver
+            ? `Score: ${state.score}`
+            : state.levelComplete
+              ? "Get ready!"
+              : state.startingMessage
+                ? <div className="opt">
+                    <div>Tap a tile when it turns green.</div>
+                    <div>You win when no more tile is available.</div>
+                    <div>Don't miss any or the game ends!</div>
+                  </div>
+                : null
+        }
+      </div>
       <button className="button" onClick={state.gameOver || state.startingMessage ? props.startNewGame : props.startNextLevel} style={getButtonStyle(props.size)}>
         {state.gameOver || state.startingMessage ? "Start new game" : "Start next level"}
       </button>
