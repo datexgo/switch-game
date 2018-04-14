@@ -20,7 +20,8 @@ class Game extends Component{
       levelComplete: false,
       startingMessage: true,
       gameOver: false,
-      score: 0
+      score: 0,
+      best: 0
     }
   }
 
@@ -42,7 +43,7 @@ class Game extends Component{
     this.startTimer = setTimeout(() => {
       this.activateRandomCell()
       this.runTicker()
-    }, 1000) // TODO magic number
+    }, 1000)
   }
 
   startNewGame = () => {
@@ -90,7 +91,8 @@ class Game extends Component{
 
   gameOver = () => {
     this.setState({
-      gameOver: true
+      gameOver: true,
+      best: this.state.best > this.state.score ? this.state.best : this.state.score
     })
     this.exitGame()
     this.initCells()
@@ -113,7 +115,7 @@ class Game extends Component{
 
       this.setState({
         cells: R.set2([offCell.index, "countdown"],
-          5, R.set2([offCell.index, "label"], "WAIT", cells)) // TODO magic number
+          5, R.set2([offCell.index, "label"], "WAIT", cells))
       })
     }
 
@@ -137,13 +139,12 @@ class Game extends Component{
       this.setState({
         score: this.state.score + 1,
         cells: R.set2([cell.index, "countdown"],
-          5, R.set2([cell.index, "label"], "WAIT", cells)) // TODO magic number 5
+          5, R.set2([cell.index, "label"], "WAIT", cells))
       })
     }
   }
 
   componentDidMount() {
-    //this.startGame()
     this.initCells()
   }
 
@@ -152,7 +153,10 @@ class Game extends Component{
   }
 
   render() {
+    let {level, score, best} = this.state
     return <div className="game">
+      <h1>Switch game</h1>
+      <h2>{`Level: ${level} — Score: ${score} — Best: ${best}`}</h2>
       <Grid state={this.state}
             onCellTap={this.onCellTap}
             startNewGame={this.startNewGame}
