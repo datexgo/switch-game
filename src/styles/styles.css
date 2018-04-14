@@ -1,6 +1,7 @@
 .game {
   text-align: center;
   user-select: none;
+  color: #444;
   font-family: 'Helvetica', sans-serif, 'Arial';
 }
 
@@ -19,7 +20,7 @@
   right: 0;
   color: #fff;
   margin: .1vw .1vw;
-  background-color: lightgray;
+  background-color: #DCDCDC;
 }
 
 .rules {
@@ -37,12 +38,15 @@
   outline: 0 !important;
 }
 
+.button:hover {
+  background-color: #1E90FF;
+}
+
 .show-message {
   display: flex;
   align-items: center;
   justify-content: center;
   position: absolute;
-  color: #363636;
   top: 0;
   left: 0;
   z-index: 1;
