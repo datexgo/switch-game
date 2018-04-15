@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from 'prop-types'
 import classNames from "classnames"
 
 let getStyle = (size) =>({
@@ -23,8 +24,8 @@ let Cell = (props) => {
   </div>
 }
 
-// Cell.propTypes = {
-//   onClick: PT.function.isRequired,
-// }
+Cell.propTypes = {
+  onClick: PropTypes.func.isRequired
+}
 
 export default Cell

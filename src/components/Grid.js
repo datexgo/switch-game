@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from 'prop-types'
 import Cell from "./Cell"
 import GameMessage from './GameMessage'
 import getCellSize from "../helpers/getCellSize"
@@ -33,8 +34,8 @@ let Grid = (props) => {
   </div>
 }
 
-// Grip.propTypes = {
-//   onCellTap: PT.function.isRequired,
-// }
+Grid.propTypes = {
+  onCellTap: PropTypes.func.isRequired
+}
 
 export default Grid

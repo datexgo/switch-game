@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 let classNames = require('classnames')
 
 let getStyle = (size) => {
@@ -57,6 +58,11 @@ const GameMessage = (props) => {
       </button>
     </div>
   </div>
+}
+
+GameMessage.propTypes = {
+  startNewGame: PropTypes.func.isRequired,
+  startNextLevel: PropTypes.func.isRequired
 }
 
 export default GameMessage
