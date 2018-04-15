@@ -66,39 +66,24 @@ class Game extends Component{
     })
   }
 
-  exitGame() {
-    clearTimeout(this.startTimer)
-    clearTimeout(this.newCellTimer)
-    clearInterval(this.tickTimer)
-  }
-
   runTicker() {
     this.tickTimer = setInterval(() => {
       let {cells} = this.state
-      let updatedCells = this.waitTimeoutCheck(cells)
+      let updatedCells = this.isWaitTimeout(cells)
       this.setState({
         cells: R.map(R.over2("countdown", decNumber), updatedCells)
       })
-      this.tapTimeoutCheck(cells)
+      this.isTapTimeout(cells)
     }, 1000)
   }
 
-  tapTimeoutCheck = (cells) => {
+  isTapTimeout = (cells) => {
     cells.map(cell => {
       cell.countdown == 1 && cell.label == "TAP" ? this.gameOver() : null
     })
   }
 
-  gameOver = () => {
-    this.setState({
-      gameOver: true,
-      best: this.state.best > this.state.score ? this.state.best : this.state.score
-    })
-    this.exitGame()
-    this.initCells()
-  }
-
-  waitTimeoutCheck = (cells) => {
+  isWaitTimeout = (cells) => {
     return cells.map(cell => {
       return cell.countdown == 1 && cell.label == "WAIT"
         ? {label: "TAP", countdown: 4, index: cell.index}
@@ -106,10 +91,20 @@ class Game extends Component{
     })
   }
 
+  isLvlComplete = (cells) => {
+    if(!cells.length) {
+      this.exitGame()
+      this.setState({
+        levelComplete: true
+      })
+      this.initCells()
+    }
+  }
+
   activateRandomCell = () => {
     let {cells} = this.state
-
     let offCells = R.filter(cell => cell.countdown == null, cells)
+
     if (offCells.length) {
       let offCell = pickRandom(offCells)
 
@@ -123,16 +118,6 @@ class Game extends Component{
     this.isLvlComplete(offCells)
   }
 
-  isLvlComplete = (cells) => {
-    if(!cells.length) {
-      this.exitGame()
-      this.setState({
-        levelComplete: true
-      })
-      this.initCells()
-    }
-  }
-
   onCellTap = (cell) => {
     if (cell.countdown != null && cell.label != "WAIT") {
       let {cells} = this.state
@@ -142,6 +127,22 @@ class Game extends Component{
           5, R.set2([cell.index, "label"], "WAIT", cells))
       })
     }
+  }
+
+  gameOver = () => {
+    let {score, best} = this.state
+    this.setState({
+      gameOver: true,
+      best: best > score ? best : score
+    })
+    this.exitGame()
+    this.initCells()
+  }
+
+  exitGame() {
+    clearTimeout(this.startTimer)
+    clearTimeout(this.newCellTimer)
+    clearInterval(this.tickTimer)
   }
 
   componentDidMount() {

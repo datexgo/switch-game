@@ -5,11 +5,9 @@ let getStyle = (size) => {
   return {
     width: size,
     height: size,
-    fontSize: `${Math.round(size / 7)}px`
+    fontSize: `${Math.round(size / 8)}px`
   }
 }
-
-//переработать компонет для совместного использования с междууровневым сообщением
 
 let getButtonStyle = (size) => {
   return {
@@ -52,7 +50,9 @@ const GameMessage = (props) => {
                 : null
         }
       </div>
-      <button className="button" onClick={state.gameOver || state.startingMessage ? props.startNewGame : props.startNextLevel} style={getButtonStyle(props.size)}>
+      <button className="button"
+              onClick={state.gameOver || state.startingMessage ? props.startNewGame : props.startNextLevel}
+              style={getButtonStyle(props.size)}>
         {state.gameOver || state.startingMessage ? "Start new game" : "Start next level"}
       </button>
     </div>
