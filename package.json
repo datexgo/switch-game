@@ -1,11 +1,14 @@
 {
   "name": "reactive-switch-game",
+  "homepage": "https://datexgo.github.io/reactive-switch-game",
   "version": "1.0.0",
   "description": "swicth game implemented in reactive way",
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --content-base ./public --open --mode development",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "author": "Artem Kozyrev",
   "license": "ISC",
