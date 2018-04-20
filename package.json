@@ -7,7 +7,6 @@
   "scripts": {
     "dev": "webpack-dev-server --content-base ./public --open",
     "build": "react-scripts build",
-    "webpack": "webpack",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
