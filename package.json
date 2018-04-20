@@ -21,8 +21,7 @@
     "ramda": "^0.25.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-scripts": "^1.1.1",
-    "webpack": "^3.11.0"
+    "react-scripts": "^1.1.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -33,7 +32,8 @@
     "css-loader": "^0.28.10",
     "file-loader": "^1.1.10",
     "style-loader": "^0.20.2",
+    "webpack": "^3.11.0",
     "webpack-cli": "^2.0.9",
-    "webpack-dev-server": "^3.1.0"
+    "webpack-dev-server": "^3.0.0"
   }
 }
