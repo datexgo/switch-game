@@ -69,21 +69,21 @@ class Game extends Component{
   runTicker() {
     this.tickTimer = setInterval(() => {
       let {cells} = this.state
-      let updatedCells = this.isWaitTimeout(cells)
+      let updatedCells = this.switchWaitToTap(cells)
       this.setState({
         cells: R.map(R.over2("countdown", decNumber), updatedCells)
       })
-      this.isTapTimeout(cells)
+      this.gameOverCheking(cells)
     }, 1000)
   }
 
-  isTapTimeout = (cells) => {
+  gameOverCheking = (cells) => {
     cells.map(cell => {
       cell.countdown == 1 && cell.label == "TAP" ? this.gameOver() : null
     })
   }
 
-  isWaitTimeout = (cells) => {
+  switchWaitToTap = (cells) => {
     return cells.map(cell => {
       return cell.countdown == 1 && cell.label == "WAIT"
         ? {label: "TAP", countdown: 4, index: cell.index}
