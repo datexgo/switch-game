@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 import Grid from "./Grid"
 import * as R from "@paqmind/ramda"
-import K from "kefir"
 import pickRandom from '../helpers/pickRandom'
 import decNumber from '../helpers/decNumber'
 import getNumberOfCells from "../helpers/getNumberOfCells"
@@ -20,6 +19,7 @@ class Game extends Component{
       levelComplete: false,
       startingMessage: true,
       gameOver: false,
+      gamePassed: false,
       score: 0,
       best: 0
     }
@@ -73,32 +73,8 @@ class Game extends Component{
       this.setState({
         cells: R.map(R.over2("countdown", decNumber), updatedCells)
       })
-      this.gameOverCheking(cells)
+      this.gameStatusChecking(cells)
     }, 1000)
-  }
-
-  gameOverCheking = (cells) => {
-    cells.map(cell => {
-      cell.countdown == 1 && cell.label == "TAP" ? this.gameOver() : null
-    })
-  }
-
-  switchWaitToTap = (cells) => {
-    return cells.map(cell => {
-      return cell.countdown == 1 && cell.label == "WAIT"
-        ? {label: "TAP", countdown: 4, index: cell.index}
-        : cell
-    })
-  }
-
-  isLvlComplete = (cells) => {
-    if(!cells.length) {
-      this.exitGame()
-      this.setState({
-        levelComplete: true
-      })
-      this.initCells()
-    }
   }
 
   activateRandomCell = () => {
@@ -112,10 +88,32 @@ class Game extends Component{
         cells: R.set2([offCell.index, "countdown"],
           5, R.set2([offCell.index, "label"], "WAIT", cells))
       })
+
+      this.newCellTimer = setTimeout(() => {this.activateRandomCell()}, 6000)
     }
 
-    this.newCellTimer = setTimeout(() => {this.activateRandomCell()}, 6000)
-    this.isLvlComplete(offCells)
+    else {
+      this.lvlComplete()
+      this.exitGame()
+    }
+  }
+
+  gameStatusChecking = (cells) => {
+    cells.map(cell => {
+      cell.countdown == 1 && cell.label == "TAP"
+        ? this.gameIsLose()
+        : this.state.level > 9
+          ? this.gamePassed()
+          : null
+    })
+  }
+
+  switchWaitToTap = (cells) => {
+    return cells.map(cell => {
+      return cell.countdown == 1 && cell.label == "WAIT"
+        ? {label: "TAP", countdown: 4, index: cell.index}
+        : cell
+    })
   }
 
   onCellTap = (cell) => {
@@ -129,20 +127,28 @@ class Game extends Component{
     }
   }
 
-  gameOver = () => {
+  lvlComplete = () => {
+    this.setState({levelComplete: true})
+  }
+
+  gamePassed = () => {
+    this.setState({gamePassed: true})
+  }
+
+  gameIsLose = () => {
     let {score, best} = this.state
     this.setState({
       gameOver: true,
       best: best > score ? best : score
     })
     this.exitGame()
-    this.initCells()
   }
 
   exitGame() {
     clearTimeout(this.startTimer)
     clearTimeout(this.newCellTimer)
     clearInterval(this.tickTimer)
+    this.initCells()
   }
 
   componentDidMount() {
