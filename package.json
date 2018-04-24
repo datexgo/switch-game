@@ -1,6 +1,6 @@
 {
-  "name": "reactive-switch-game",
-  "homepage": "https://datexgo.github.io/reactive-switch-game",
+  "name": "switch-game",
+  "homepage": "https://datexgo.github.io/switch-game",
   "version": "1.0.0",
   "description": "swicth game implemented in reactive way",
   "main": "index.js",
