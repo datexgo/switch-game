@@ -28,7 +28,7 @@ const GameMessage = (props) => {
       <div>
         {
           state.gameOver
-            ? "Game Over"
+            ? "You lose"
             : state.levelComplete
               ? `Level ${state.level} complete!`
               : state.startingMessage
