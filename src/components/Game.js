@@ -18,7 +18,7 @@ class Game extends Component{
       level: 1,
       levelComplete: false,
       startingMessage: true,
-      gameOver: false,
+      gameIsLose: false,
       gamePassed: false,
       score: 0,
       best: 0
@@ -49,7 +49,8 @@ class Game extends Component{
   startNewGame = () => {
     this.setState({
       startingMessage: false,
-      gameOver: false,
+      gameIsLose: false,
+      gamePassed: false,
       score: 0,
       level: 1
     }, () => {
@@ -138,7 +139,7 @@ class Game extends Component{
   gameIsLose = () => {
     let {score, best} = this.state
     this.setState({
-      gameOver: true,
+      gameIsLose: true,
       best: best > score ? best : score
     })
     this.exitGame()
