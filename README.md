@@ -1,4 +1,4 @@
-## React based switch game
+## Reactive version of the switch game
 ### Demo
 https://datexgo.github.io/reactive-switch-game/
 ![ScreenShot](/src/images/screen2.jpg?raw=true)
