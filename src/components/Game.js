@@ -73,8 +73,9 @@ class Game extends Component{
       let updatedCells = this.switchWaitToTap(cells)
       this.setState({
         cells: R.map(R.over2("countdown", decNumber), updatedCells)
+      }, () => {
+        this.gameStatusChecking(cells)
       })
-      this.gameStatusChecking(cells)
     }, 1000)
   }
 
@@ -88,9 +89,9 @@ class Game extends Component{
       this.setState({
         cells: R.set2([offCell.index, "countdown"],
           5, R.set2([offCell.index, "label"], "WAIT", cells))
+      }, () => {
+        this.newCellTimer = setTimeout(() => {this.activateRandomCell()}, 6000)
       })
-
-      this.newCellTimer = setTimeout(() => {this.activateRandomCell()}, 6000)
     }
 
     else {
@@ -141,8 +142,9 @@ class Game extends Component{
     this.setState({
       gameIsLose: true,
       best: best > score ? best : score
+    }, () => {
+      this.exitGame()
     })
-    this.exitGame()
   }
 
   exitGame() {
