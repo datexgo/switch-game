@@ -9,7 +9,7 @@ import "../styles/styles.css"
 R.map2 = R.addIndex(R.map)
 let K = require('kefir')
 
-class Game extends Component{
+/*class Game extends Component{
   constructor(props) {
     super(props)
     this.startTimer = null
@@ -158,27 +158,8 @@ class Game extends Component{
 
   componentDidMount() {
     this.initCells()
-
-    let state = {
-      one: 100,
-      two: 200
-    }
-
-    function seed(state) {
-      return {
-        ...state,
-        two:1000
-      }
-    }
-    let action$ = K.sequentially(500, [seed])
-    let state$ = action$
-      .merge(K.constant(state))
-      .scan((state, fn) => fn(state))
-
-    state$.observe(data => {
-      console.log(data)
-    })
   }
+
 
   componentWillUnmount() {
     this.exitGame()
@@ -198,7 +179,7 @@ class Game extends Component{
   }
 }
 
-//export default Game
+export default Game*/
 
 export default () => {
   let seed = 0
