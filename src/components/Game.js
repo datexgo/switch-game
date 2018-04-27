@@ -182,16 +182,26 @@ let K = require('kefir')
 export default Game*/
 
 export default () => {
-  let seed = 0
-  let action$ = K.sequentially(500, [R.inc, R.inc, R.inc, R.inc, R.inc])
+  let state = {
+    cells: [], // {label :: "off" | "WAIT" | "TAP", countdown :: Number | Null, index :: Number}
+    level: 1,
+    levelComplete: false,
+    startingMessage: true,
+    gameIsLose: false,
+    gamePassed: false,
+    score: 0,
+    best: 0
+  }
+
+  let action$ = K.interval(1000, R.over2('level', R.inc))
   let state$ = action$
-    .merge(K.constant(seed))
+    .merge(K.constant(state))
     .scan((state, fn) => fn(state))
 
   let Component = connect(
-    {obj: state$},
-    ({obj}) => <div>{obj}</div>
+    {state: state$},
+    ({state}) => <div>{state.level}</div>
   )
 
-  return Component
+  return <Component/>
 }
