@@ -182,25 +182,132 @@ let K = require('kefir')
 export default Game*/
 
 export default () => {
-  let state = {
+  let initialState = {
     cells: [], // {label :: "off" | "WAIT" | "TAP", countdown :: Number | Null, index :: Number}
     level: 1,
     levelComplete: false,
     startingMessage: true,
     gameIsLose: false,
-    gamePassed: false,
+    gameIsPassed: false,
     score: 0,
     best: 0
   }
 
-  let action$ = K.interval(1000, R.over2('level', R.inc))
-  let state$ = action$
-    .merge(K.constant(state))
-    .scan((state, fn) => fn(state))
+  function Store(action$) {
+    return action$
+      .scan((state, fn) => {
+        if (R.is(Function, fn)) {
+          return fn(state)
+        } else {
+          throw Error(`dispatched value must be a function, got ${typeof fn}`)
+        }
+      }, null)
+      .skipDuplicates()
+  }
+
+  function pool() {
+    let pool = K.pool()
+    let _plug = pool.plug.bind(pool)
+    pool.plug = function (x) {
+      if (x instanceof K.Property || x instanceof K.Stream || x instanceof K.Observable) {
+        _plug(x)
+      } else {
+        _plug(K.constant(x))
+      }
+    }
+    return pool
+  }
+
+  let action$ = pool()
+  let state$ = Store(K.merge([
+    K.constant(() => initialState),
+    action$
+  ]))
+
+  function initCells() {
+    let numberOfCells = getNumberOfCells(initialState.level)
+    let cells = R.map2((_, i) => ({
+      label: "off",
+      countdown: null,
+      index: i,
+    }), R.range(0, numberOfCells))
+
+    action$.plug(R.set2('cells', cells))
+  }
+
+  function activateRandomCell() {
+    let cells
+    state$.observe(data => cells = data.cells)
+    let offCells = R.filter(cell => cell.countdown == null, cells)
+
+    if (offCells.length) {
+      let offCell = pickRandom(offCells)
+
+      action$.plug(R.set2("cells", R.set2([offCell.index, "countdown"],
+      5, R.set2([offCell.index, "label"], "WAIT", cells))))
+    }
+
+    else {
+      lvlComplete()
+      //this.exitGame()
+    }
+  }
+
+  function gameStatusChecking(cells) {
+    cells.map(cell => {
+      cell.countdown == 1 && cell.label == "TAP"
+        ? this.gameIsLose()
+        : this.state.level > 9
+        ? this.gameIsPassed()
+        : null
+    })
+  }
+
+  function switchWaitToTap(cells) {
+    return cells.map(cell => {
+      return cell.countdown == 1 && cell.label == "WAIT"
+        ? {label: "TAP", countdown: 4, index: cell.index}
+        : cell
+    })
+  }
+
+  function runTicker() {
+    this.tickTimer = setInterval(() => {
+      let {cells} = this.state
+      let updatedCells = this.switchWaitToTap(cells)
+      this.setState({
+        cells: R.map(R.over2("countdown", decNumber), updatedCells)
+      }, () => {
+        this.gameStatusChecking(cells)
+      })
+    }, 1000)
+  }
+
+  initCells()
+  activateRandomCell()
+
+  function lvlComplete() {
+    action$.plug(R.set2('levelComplete', true))
+  }
+
+  function gameIsPassed() {
+    action$.plug(R.set2("gameIsPassed", true))
+  }
+
+  function gameIsLose() {
+    state$.observe(state => {
+      state.score > state.best
+        ? action$.plug(R.set2("best", state.score))
+        : null
+    })
+    action$.plug(R.set2("gameIsLose", true))
+  }
 
   let Component = connect(
     {state: state$},
-    ({state}) => <div>{state.level}</div>
+    ({state}) => <div className="game">
+      <Grid state={state} onCellTap={(e) => console.log(e)}/>
+    </div>
   )
 
   return <Component/>
