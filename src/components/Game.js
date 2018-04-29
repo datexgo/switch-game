@@ -219,10 +219,13 @@ export default () => {
   }
 
   let action$ = pool()
+
   let state$ = Store(K.merge([
     K.constant(() => initialState),
     action$
   ]))
+
+  //------------------- game logic -------------------------------------
 
   function initCells() {
     let numberOfCells = getNumberOfCells(initialState.level)
@@ -249,7 +252,6 @@ export default () => {
 
     else {
       lvlComplete()
-      //this.exitGame()
     }
   }
 
@@ -272,19 +274,10 @@ export default () => {
   }
 
   function runTicker() {
-    this.tickTimer = setInterval(() => {
-      let {cells} = this.state
-      let updatedCells = this.switchWaitToTap(cells)
-      this.setState({
-        cells: R.map(R.over2("countdown", decNumber), updatedCells)
-      }, () => {
-        this.gameStatusChecking(cells)
-      })
-    }, 1000)
+    let cells
+    state$.observe(state => cells = switchWaitToTap(state.cells))
+    return R.set2("cells", R.map(R.over2("countdown", decNumber), cells))
   }
-
-  initCells()
-  activateRandomCell()
 
   function lvlComplete() {
     action$.plug(R.set2('levelComplete', true))
@@ -303,9 +296,25 @@ export default () => {
     action$.plug(R.set2("gameIsLose", true))
   }
 
+  /*============ попытка запустить и проверить роботу таймера ================*/
+
+  initCells()
+  activateRandomCell()
+  K.fromPoll(1000, runTicker())
+    .onValue(data => {
+      action$.plug(data)
+      console.log(data)
+    })
+
+  /*===========================================================================*/
+
+  //---------------------------------------------------------------------------------
+
   let Component = connect(
     {state: state$},
     ({state}) => <div className="game">
+      <h1>Switch game</h1>
+      <h2>{`Level: ${state.level} — Score: ${state.score} — Best: ${state.best}`}</h2>
       <Grid state={state} onCellTap={(e) => console.log(e)}/>
     </div>
   )
