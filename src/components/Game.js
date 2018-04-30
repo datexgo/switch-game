@@ -239,21 +239,28 @@ export default () => {
   }
 
   function activateRandomCell() {
-    let cells
-    state$.observe(data => cells = data.cells)
-    let offCells = R.filter(cell => cell.countdown == null, cells)
+      action$.plug(currentState => {
+        let updatedCells,
+            cells = currentState.cells,
+            offCells = R.filter(cell => cell.countdown == null, cells)
 
-    if (offCells.length) {
-      let offCell = pickRandom(offCells)
+        if (offCells.length) {
+          let offCell = pickRandom(offCells)
+          updatedCells = R.set2([offCell.index, "countdown"],
+            5, R.set2([offCell.index, "label"], "WAIT", cells))
+        }
 
-      action$.plug(R.set2("cells", R.set2([offCell.index, "countdown"],
-      5, R.set2([offCell.index, "label"], "WAIT", cells))))
+        else {
+          lvlComplete()
+        }
+
+        return {
+          ...currentState,
+          cells: updatedCells
+        }
+      })
     }
 
-    else {
-      lvlComplete()
-    }
-  }
 
   function gameStatusChecking(cells) {
     cells.map(cell => {
@@ -274,9 +281,18 @@ export default () => {
   }
 
   function runTicker() {
-    let cells
+    /*let cells
     state$.observe(state => cells = switchWaitToTap(state.cells))
-    return R.set2("cells", R.map(R.over2("countdown", decNumber), cells))
+    return R.set2("cells", R.map(R.over2("countdown", decNumber), cells))*/
+
+    action$.plug(currentState => {
+      let cells = switchWaitToTap(currentState.cells)
+      let updatedCells = R.set2("cells", R.map(R.over2("countdown", decNumber), cells))
+      return {
+        ...currentState,
+        cells: updatedCells
+      }
+    })
   }
 
   function lvlComplete() {
@@ -300,11 +316,6 @@ export default () => {
 
   initCells()
   activateRandomCell()
-  K.fromPoll(1000, runTicker())
-    .onValue(data => {
-      action$.plug(data)
-      console.log(data)
-    })
 
   /*===========================================================================*/
 
