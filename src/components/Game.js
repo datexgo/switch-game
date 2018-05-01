@@ -247,7 +247,7 @@ export default () => {
         if (offCells.length) {
           let offCell = pickRandom(offCells)
           updatedCells = R.set2([offCell.index, "countdown"],
-            5, R.set2([offCell.index, "label"], "WAIT", cells))
+            5, R.set2([offCell.index, "label"], "WAIT", currentState.cells))
         }
 
         else {
@@ -281,16 +281,11 @@ export default () => {
   }
 
   function runTicker() {
-    /*let cells
-    state$.observe(state => cells = switchWaitToTap(state.cells))
-    return R.set2("cells", R.map(R.over2("countdown", decNumber), cells))*/
-
-    action$.plug(currentState => {
-      let cells = switchWaitToTap(currentState.cells)
-      let updatedCells = R.set2("cells", R.map(R.over2("countdown", decNumber), cells))
+    action$.plug(currnetState => {
+      let updatedCells = switchWaitToTap(currnetState.cells)
       return {
-        ...currentState,
-        cells: updatedCells
+        ...currnetState,
+        cells: R.map(R.over2("countdown", decNumber), updatedCells)
       }
     })
   }
@@ -304,18 +299,25 @@ export default () => {
   }
 
   function gameIsLose() {
-    state$.observe(state => {
-      state.score > state.best
-        ? action$.plug(R.set2("best", state.score))
-        : null
+    action$.plug(currentState => {
+      return {
+        ...currentState,
+        gameIsLose: true,
+        best: currentState.score > currentState.best ? currentState.score : null
+      }
     })
-    action$.plug(R.set2("gameIsLose", true))
   }
 
   /*============ попытка запустить и проверить роботу таймера ================*/
 
   initCells()
   activateRandomCell()
+  let ticker$ = K.interval(1000, runTicker)
+  ticker$.observe(fn => {
+    fn()
+  })
+
+
 
   /*===========================================================================*/
 
