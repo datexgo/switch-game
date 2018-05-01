@@ -219,10 +219,14 @@ export default () => {
   }
 
   let action$ = pool()
+  let ticker$ = K.interval(1000).map(_ => function tick(state) {
+    return R.over2("cells", R.map(R.pipe(switchWaitToTap, decNumber)), state)
+  })
 
   let state$ = Store(K.merge([
     K.constant(() => initialState),
-    action$
+    action$,
+    ticker$
   ]))
 
   //------------------- game logic -------------------------------------
@@ -272,22 +276,10 @@ export default () => {
     })
   }
 
-  function switchWaitToTap(cells) {
-    return cells.map(cell => {
-      return cell.countdown == 1 && cell.label == "WAIT"
-        ? {label: "TAP", countdown: 4, index: cell.index}
-        : cell
-    })
-  }
-
-  function runTicker() {
-    action$.plug(currnetState => {
-      let updatedCells = switchWaitToTap(currnetState.cells)
-      return {
-        ...currnetState,
-        cells: R.map(R.over2("countdown", decNumber), updatedCells)
-      }
-    })
+  function switchWaitToTap(cell) {
+    return cell.countdown == 1 && cell.label == "WAIT"
+      ? {label: "TAP", countdown: 4, index: cell.index}
+      : cell
   }
 
   function lvlComplete() {
@@ -312,10 +304,6 @@ export default () => {
 
   initCells()
   activateRandomCell()
-  let ticker$ = K.interval(1000, runTicker)
-  ticker$.observe(fn => {
-    fn()
-  })
 
 
 
