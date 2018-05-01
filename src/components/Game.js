@@ -231,40 +231,35 @@ export default () => {
 
   //------------------- game logic -------------------------------------
 
-  function initCells() {
-    let numberOfCells = getNumberOfCells(initialState.level)
+  function initCells(state) {
+    let numberOfCells = getNumberOfCells(state.level)
     let cells = R.map2((_, i) => ({
       label: "off",
       countdown: null,
       index: i,
     }), R.range(0, numberOfCells))
 
-    action$.plug(R.set2('cells', cells))
+    return {
+      ...state,
+      cells
+    }
   }
 
-  function activateRandomCell() {
-      action$.plug(currentState => {
-        let updatedCells,
-            cells = currentState.cells,
-            offCells = R.filter(cell => cell.countdown == null, cells)
+  function activateRandomCell(state) {
+    let cells = state.cells
+    let offCells = R.filter(cell => cell.countdown == null, cells)
 
-        if (offCells.length) {
-          let offCell = pickRandom(offCells)
-          updatedCells = R.set2([offCell.index, "countdown"],
-            5, R.set2([offCell.index, "label"], "WAIT", currentState.cells))
-        }
-
-        else {
-          lvlComplete()
-        }
-
-        return {
-          ...currentState,
-          cells: updatedCells
-        }
-      })
+    if (offCells.length) {
+      let offCell = pickRandom(offCells)
+      cells = R.set2([offCell.index, "countdown"],
+        5, R.set2([offCell.index, "label"], "WAIT", state.cells))
     }
 
+    return {
+      ...state,
+      cells
+    }
+  }
 
   function gameStatusChecking(cells) {
     cells.map(cell => {
@@ -282,28 +277,32 @@ export default () => {
       : cell
   }
 
-  function lvlComplete() {
-    action$.plug(R.set2('levelComplete', true))
+  function lvlComplete(state) {
+    return {
+      ...state,
+      levelComplete: true
+    }
   }
 
-  function gameIsPassed() {
-    action$.plug(R.set2("gameIsPassed", true))
+  function gameIsPassed(state) {
+    return {
+      ...state,
+      gameIsPassed: true
+    }
   }
 
-  function gameIsLose() {
-    action$.plug(currentState => {
-      return {
-        ...currentState,
-        gameIsLose: true,
-        best: currentState.score > currentState.best ? currentState.score : null
-      }
-    })
+  function gameIsLose(state) {
+    return {
+      ...state,
+      gameIsLose: true,
+      best: state.score > state.best ? state.score : null
+    }
   }
 
   /*============ попытка запустить и проверить роботу таймера ================*/
 
-  initCells()
-  activateRandomCell()
+  action$.plug(initCells)
+  action$.plug(activateRandomCell)
 
 
 
