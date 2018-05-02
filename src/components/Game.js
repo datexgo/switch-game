@@ -245,6 +245,40 @@ export default () => {
     }
   }
 
+  function startGame(state) {
+    return {
+      ...state,
+      startingMessage: false,
+      gameIsLose: false,
+      gameIsPassed: false,
+      score: 0,
+      level: 1
+    }
+  }
+
+  function startNewGameBtnHandler() {
+    action$.plug(initCells)
+    action$.plug(startGame)
+    action$.plug(activateRandomCell)
+  }
+
+  function onCellTap(cell) {
+    function tapHandler(state) {
+      if (cell.countdown != null && cell.label != "WAIT") {
+        return {
+          ...state,
+          score: state.score + 1,
+          cells: R.set2([cell.index, "countdown"],
+            5, R.set2([cell.index, "label"], "WAIT", state.cells))
+        }
+      } else {
+        return state
+      }
+    }
+
+    action$.plug(tapHandler)
+  }
+
   function activateRandomCell(state) {
     let cells = state.cells
     let offCells = R.filter(cell => cell.countdown == null, cells)
@@ -302,7 +336,6 @@ export default () => {
   /*============ попытка запустить и проверить роботу таймера ================*/
 
   action$.plug(initCells)
-  action$.plug(activateRandomCell)
 
 
 
@@ -315,7 +348,7 @@ export default () => {
     ({state}) => <div className="game">
       <h1>Switch game</h1>
       <h2>{`Level: ${state.level} — Score: ${state.score} — Best: ${state.best}`}</h2>
-      <Grid state={state} onCellTap={(e) => console.log(e)}/>
+      <Grid startNewGame={startNewGameBtnHandler} state={state} onCellTap={onCellTap}/>
     </div>
   )
 
