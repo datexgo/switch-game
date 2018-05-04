@@ -262,7 +262,7 @@ export default () => {
     action$.plug(activateRandomCell)
   }
 
-  function onCellTap(cell) {
+  function onCellTap(cell) {  //K.fromEvent............................
     function tapHandler(state) {
       if (cell.countdown != null && cell.label != "WAIT") {
         return {
