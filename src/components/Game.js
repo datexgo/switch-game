@@ -262,6 +262,11 @@ export default () => {
     action$.plug(activateRandomCell)
   }
 
+  let btnClicks$ = K.fromEvents(document.querySelector('cell'), 'click')
+  btnClicks$.onValue(x => {
+    console.log(x)
+  })
+
   function onCellTap(cell) {  //K.fromEvent............................
     function tapHandler(state) {
       if (cell.countdown != null && cell.label != "WAIT") {
