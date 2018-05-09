@@ -220,7 +220,13 @@ export default () => {
 
   let action$ = pool()
   let ticker$ = K.interval(1000).map(_ => function tick(state) {
-    return R.over2("cells", R.map(R.pipe(switchWaitToTap, decNumber)), state)
+    let {score, best} = state
+
+    if (gameIsLose(state)) {
+      return R.merge(initCells(state), {gameIsLose: true, best: score > best ? score: best})
+    } else {
+      return R.over2("cells", R.map(R.pipe(switchWaitToTap, decNumber)), state)
+    }
   })
 
   let state$ = Store(K.merge([
@@ -302,14 +308,15 @@ export default () => {
     }
   }
 
-  function gameStatusChecking(cells) {
-    cells.map(cell => {
-      cell.countdown == 1 && cell.label == "TAP"
-        ? this.gameIsLose()
-        : this.state.level > 9
-        ? this.gameIsPassed()
-        : null
+  function gameIsLose(state) {
+    let x = false
+    state.cells.map(cell => {
+      if (cell. countdown == 1 && cell.label == "TAP") {
+        x = true
+      }
     })
+
+    return x
   }
 
   function switchWaitToTap(cell) {
@@ -325,18 +332,9 @@ export default () => {
     }
   }
 
-  function gameIsLose(state) {
-    return {
-      ...state,
-      gameIsLose: true,
-      best: state.score > state.best ? state.score : null
-    }
-  }
-
   /*============ попытка запустить и проверить роботу таймера ================*/
 
   action$.plug(initCells)
-
 
 
   /*===========================================================================*/
