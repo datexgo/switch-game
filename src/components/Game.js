@@ -287,11 +287,18 @@ export default () => {
       let offCell = pickRandom(offCells)
       cells = R.set2([offCell.index, "countdown"],
         5, R.set2([offCell.index, "label"], "WAIT", state.cells))
+
+      return {
+        ...state,
+        cells
+      }
     }
 
-    return {
-      ...state,
-      cells
+    else {
+      return {
+        ...state,
+        levelComplete: true
+      }
     }
   }
 
@@ -309,13 +316,6 @@ export default () => {
     return cell.countdown == 1 && cell.label == "WAIT"
       ? {label: "TAP", countdown: 4, index: cell.index}
       : cell
-  }
-
-  function lvlComplete(state) {
-    return {
-      ...state,
-      levelComplete: true
-    }
   }
 
   function gameIsPassed(state) {
