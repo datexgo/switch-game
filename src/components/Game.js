@@ -301,10 +301,7 @@ export default () => {
     }
 
     else {
-      return {
-        ...state,
-        levelComplete: true
-      }
+      return R.merge(initCells(state), {levelComplete: true})
     }
   }
 
