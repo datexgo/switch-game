@@ -223,7 +223,7 @@ export default () => {
     let {score, best} = state
 
     if (gameIsLose(state)) {
-      return R.merge(initCells(state), {gameIsLose: true, best: score > best ? score: best})
+      return R.merge(initCells(state), {gameIsLose: true, best: score > best ? score : best})
     } else {
       return R.over2("cells", R.map(R.pipe(switchWaitToTap, decNumber)), state)
     }
