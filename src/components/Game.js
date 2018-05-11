@@ -9,178 +9,6 @@ import "../styles/styles.css"
 R.map2 = R.addIndex(R.map)
 let K = require('kefir')
 
-/*class Game extends Component{
-  constructor(props) {
-    super(props)
-    this.startTimer = null
-    this.tickTimer = null
-    this.newCellTimer = null
-    this.state = {
-      cells: [], // {label :: "off" | "WAIT" | "TAP", countdown :: Number | Null, index :: Number}
-      level: 1,
-      levelComplete: false,
-      startingMessage: true,
-      gameIsLose: false,
-      gamePassed: false,
-      score: 0,
-      best: 0
-    }
-  }
-
-  initCells = () => {
-    let numberOfCells = getNumberOfCells(this.state.level)
-    let cells = R.map2((_, i) => ({
-      label: "off",
-      countdown: null,
-      index: i,
-    }), R.range(0, numberOfCells))
-
-    this.setState({
-      cells
-    })
-  }
-
-  startGame = () => {
-    this.initCells()
-    this.startTimer = setTimeout(() => {
-      this.activateRandomCell()
-      this.runTicker()
-    }, 1000)
-  }
-
-  startNewGame = () => {
-    this.setState({
-      startingMessage: false,
-      gameIsLose: false,
-      gamePassed: false,
-      score: 0,
-      level: 1
-    }, () => {
-      this.startGame()
-    })
-  }
-
-  startNextLevel = () => {
-    this.setState({
-      level: this.state.level + 1,
-      levelComplete: false
-    }, () => {
-      this.startGame()
-    })
-  }
-
-  runTicker() {
-    this.tickTimer = setInterval(() => {
-      let {cells} = this.state
-      let updatedCells = this.switchWaitToTap(cells)
-      this.setState({
-        cells: R.map(R.over2("countdown", decNumber), updatedCells)
-      }, () => {
-        this.gameStatusChecking(cells)
-      })
-    }, 1000)
-  }
-
-  activateRandomCell = () => {
-    let {cells} = this.state
-    let offCells = R.filter(cell => cell.countdown == null, cells)
-
-    if (offCells.length) {
-      let offCell = pickRandom(offCells)
-
-      this.setState({
-        cells: R.set2([offCell.index, "countdown"],
-          5, R.set2([offCell.index, "label"], "WAIT", cells))
-      }, () => {
-        this.newCellTimer = setTimeout(() => {this.activateRandomCell()}, 6000)
-      })
-    }
-
-    else {
-      this.lvlComplete()
-      this.exitGame()
-    }
-  }
-
-  gameStatusChecking = (cells) => {
-    cells.map(cell => {
-      cell.countdown == 1 && cell.label == "TAP"
-        ? this.gameIsLose()
-        : this.state.level > 9
-          ? this.gamePassed()
-          : null
-    })
-  }
-
-  switchWaitToTap = (cells) => {
-    return cells.map(cell => {
-      return cell.countdown == 1 && cell.label == "WAIT"
-        ? {label: "TAP", countdown: 4, index: cell.index}
-        : cell
-    })
-  }
-
-  onCellTap = (cell) => {
-    if (cell.countdown != null && cell.label != "WAIT") {
-      let {cells} = this.state
-      this.setState({
-        score: this.state.score + 1,
-        cells: R.set2([cell.index, "countdown"],
-          5, R.set2([cell.index, "label"], "WAIT", cells))
-      })
-    }
-  }
-
-  lvlComplete = () => {
-    this.setState({levelComplete: true})
-  }
-
-  gamePassed = () => {
-    this.setState({gamePassed: true})
-  }
-
-  gameIsLose = () => {
-    let {score, best} = this.state
-    this.setState({
-      gameIsLose: true,
-      best: best > score ? best : score
-    }, () => {
-      this.exitGame()
-    })
-  }
-
-  exitGame() {
-    clearTimeout(this.startTimer)
-    clearTimeout(this.newCellTimer)
-    clearInterval(this.tickTimer)
-    this.initCells()
-  }
-
-  componentDidMount() {
-    this.initCells()
-  }
-
-
-  componentWillUnmount() {
-    this.exitGame()
-  }
-
-  render() {
-    let {level, score, best} = this.state
-    return <div className="game">
-      <h1>Switch game</h1>
-      <h2>{`Level: ${level} — Score: ${score} — Best: ${best}`}</h2>
-      <Grid state={this.state}
-            onCellTap={this.onCellTap}
-            startNewGame={this.startNewGame}
-            startNextLevel={this.startNextLevel}
-      />
-    </div>
-  }
-}
-
-export default Game*/
-
 export default () => {
   let initialState = {
     cells: [], // {label :: "off" | "WAIT" | "TAP", countdown :: Number | Null, index :: Number}
@@ -192,6 +20,8 @@ export default () => {
     score: 0,
     best: 0
   }
+
+  let newCellTimer
 
   function Store(action$) {
     return action$
@@ -262,13 +92,15 @@ export default () => {
     }
   }
 
-  function startNewGameBtnHandler() {
-    action$.plug(initCells)
-    action$.plug(startGame)
-    action$.plug(activateRandomCell)
+  function startLevel(state) {
+    return {
+      ...state,
+      levelComplete: false,
+      level: R.inc(state.level)
+    }
   }
 
-  function onCellTap(cell) {  //K.fromEvent............................
+  function onCellTap(cell) {
     function tapHandler(state) {
       if (cell.countdown != null && cell.label != "WAIT") {
         return {
@@ -294,6 +126,8 @@ export default () => {
       cells = R.set2([offCell.index, "countdown"],
         5, R.set2([offCell.index, "label"], "WAIT", state.cells))
 
+      newCellTimer = setTimeout(() => action$.plug(activateRandomCell), 6000)
+
       return {
         ...state,
         cells
@@ -301,19 +135,21 @@ export default () => {
     }
 
     else {
+      clearTimeout(newCellTimer)
       return R.merge(initCells(state), {levelComplete: true})
     }
   }
 
   function gameIsLose(state) {
-    let x = false
+    let loseStatus = false
     state.cells.map(cell => {
       if (cell. countdown == 1 && cell.label == "TAP") {
         x = true
+        clearTimeout(newCellTimer)
       }
     })
 
-    return x
+    return loseStatus
   }
 
   function switchWaitToTap(cell) {
@@ -329,21 +165,31 @@ export default () => {
     }
   }
 
-  /*============ попытка запустить и проверить роботу таймера ================*/
+  function startLevelBtnHandler() {
+    action$.plug(startLevel)
+    action$.plug(initCells)
+    action$.plug(activateRandomCell)
+  }
+
+  function startNewGameBtnHandler() {
+    action$.plug(startGame)
+    action$.plug(initCells)
+    action$.plug(activateRandomCell)
+  }
 
   action$.plug(initCells)
 
-
-  /*===========================================================================*/
-
-  //---------------------------------------------------------------------------------
+  //--------------------------------------------------------------------
 
   let Component = connect(
     {state: state$},
     ({state}) => <div className="game">
       <h1>Switch game</h1>
       <h2>{`Level: ${state.level} — Score: ${state.score} — Best: ${state.best}`}</h2>
-      <Grid startNewGame={startNewGameBtnHandler} state={state} onCellTap={onCellTap}/>
+      <Grid startNewGame={startNewGameBtnHandler}
+            startNextLevel={startLevelBtnHandler}
+            state={state}
+            onCellTap={onCellTap}/>
     </div>
   )
 
