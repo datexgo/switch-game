@@ -9,7 +9,7 @@ import "../styles/styles.css"
 R.map2 = R.addIndex(R.map)
 let K = require('kefir')
 
-export default () => {
+export default function() {
   let initialState = {
     cells: [], // {label :: "off" | "WAIT" | "TAP", countdown :: Number | Null, index :: Number}
     level: 1,
@@ -144,7 +144,7 @@ export default () => {
     let loseStatus = false
     state.cells.map(cell => {
       if (cell. countdown == 1 && cell.label == "TAP") {
-        x = true
+        loseStatus = true
         clearTimeout(newCellTimer)
       }
     })
