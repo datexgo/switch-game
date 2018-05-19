@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import {connect} from '../connect'
+import Store from '../helpers/store'
 import initialState from '../data/initialState'
+import pool from '../helpers/pool'
 import Grid from "./Grid"
 import * as R from "@paqmind/ramda"
 import pickRandom from '../helpers/pickRandom'
@@ -13,31 +15,6 @@ let K = require('kefir')
 export default function() {
 
   let newCellTimer
-
-  function Store(action$) {
-    return action$
-      .scan((state, fn) => {
-        if (R.is(Function, fn)) {
-          return fn(state)
-        } else {
-          throw Error(`dispatched value must be a function, got ${typeof fn}`)
-        }
-      }, null)
-      .skipDuplicates()
-  }
-
-  function pool() {
-    let pool = K.pool()
-    let _plug = pool.plug.bind(pool)
-    pool.plug = function (x) {
-      if (x instanceof K.Property || x instanceof K.Stream || x instanceof K.Observable) {
-        _plug(x)
-      } else {
-        _plug(K.constant(x))
-      }
-    }
-    return pool
-  }
 
   let action$ = pool()
   let ticker$ = K.interval(1000).map(_ => function tick(state) {
