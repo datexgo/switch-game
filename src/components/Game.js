@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import {connect} from '../connect'
+import initialState from '../data/initialState'
 import Grid from "./Grid"
 import * as R from "@paqmind/ramda"
 import pickRandom from '../helpers/pickRandom'
@@ -10,16 +11,6 @@ R.map2 = R.addIndex(R.map)
 let K = require('kefir')
 
 export default function() {
-  let initialState = {
-    cells: [], // {label :: "off" | "WAIT" | "TAP", countdown :: Number | Null, index :: Number}
-    level: 1,
-    levelComplete: false,
-    startingMessage: true,
-    gameIsLose: false,
-    gameIsPassed: false,
-    score: 0,
-    best: 0
-  }
 
   let newCellTimer
 
