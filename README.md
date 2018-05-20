@@ -8,3 +8,6 @@ https://datexgo.github.io/reactive-switch-game/
 * **Webpack**
 * **Babel**
 * **Classnames**
+
+Inspired by [Nicolas Perriault](https://github.com/n1k0). \
+Original game idea & design is © 2014 [Laurent Victorino](http://lvictorino.com/).
