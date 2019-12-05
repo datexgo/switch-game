@@ -8,7 +8,7 @@
 .game {
   text-align: center;
   user-select: none;
-  color: #444;
+  color: $color-text;
   font-family: 'Helvetica', sans-serif, 'Arial';
 }
 
@@ -25,9 +25,9 @@
   left: 0;
   bottom: 0;
   right: 0;
-  color: #fff;
+  color: $color-text-cell;
   margin: .2vw .2vw;
-  background-color: #DCDCDC;
+  background-color: $color-inactive-cell;
 }
 
 .rules {
@@ -35,8 +35,8 @@
 }
 
 .button {
-  background-color: blue;
-  color: #fff;
+  background-color: $color-primary;
+  color: $color-button-text;
   border-radius: 3%;
   text-decoration: none;
   border: none;
@@ -46,7 +46,7 @@
 }
 
 .button:hover {
-  background-color: #1E90FF;
+  background-color: $color-primary-light;
 }
 
 .show-message {
@@ -64,9 +64,9 @@
 }
 
 .TAP {
-  background-color: green;
+  background-color: $color-tap-cell;
 }
 
 .WAIT {
-  background-color: red;
+  background-color: $color-wait-cell;
 }

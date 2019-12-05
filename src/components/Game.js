@@ -8,7 +8,6 @@ import * as R from "@paqmind/ramda"
 import pickRandom from '../helpers/pickRandom'
 import decNumber from '../helpers/decNumber'
 import getNumberOfCells from "../helpers/getNumberOfCells"
-import "../styles/styles.css"
 R.map2 = R.addIndex(R.map)
 let K = require('kefir')
 
