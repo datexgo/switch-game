@@ -6,15 +6,20 @@
 }
 
 .game {
+  margin-top: 100px;
   text-align: center;
   user-select: none;
   color: $color-text;
   font-family: 'Helvetica', sans-serif, 'Arial';
 }
 
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .cell {
   position: relative;
-  float: left;
   cursor: pointer;
 }
 
@@ -26,7 +31,7 @@
   bottom: 0;
   right: 0;
   color: $color-text-cell;
-  margin: .2vw .2vw;
+  margin: .5vw .5vw;
   background-color: $color-inactive-cell;
 }
 

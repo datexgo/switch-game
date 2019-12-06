@@ -151,7 +151,6 @@ export default function() {
   let Component = connect(
     {state: state$},
     ({state}) => <div className="game">
-      <h1>Switch game</h1>
       <h2>{`Level: ${state.level} — Score: ${state.score} — Best: ${state.best}`}</h2>
       <Grid startNewGame={startNewGameBtnHandler}
             startNextLevel={startLevelBtnHandler}
