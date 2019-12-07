@@ -1,8 +1,11 @@
-let getAvailableWindowSize = () => {
-  let availHeight = window.innerHeight - 200
+import { windowPadding, gridPadding } from '../utils/constants'
+
+const getAvailableWindowSize = () => {
+  const availHeight = window.innerHeight - windowPadding
+
   return window.innerWidth > availHeight
-    ? availHeight - 20
-    : window.innerWidth - 20
+    ? availHeight - gridPadding
+    : window.innerWidth - gridPadding
 }
 
 export default getAvailableWindowSize
