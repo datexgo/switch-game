@@ -1,28 +1,28 @@
 import React, { Component } from 'react'
-let K = require('kefir')
-let R = require('ramda')
+import * as R from '@paqmind/ramda'
+import * as K from 'kefir'
 
-export let connect = (streamsToProps, ComponentToWrap) => {
+export const connect = (streamsToProps, ComponentToWrap) => {
   class Container extends Component {
-    constructor(props) {
+    constructor (props) {
       super(props)
       this.state = {}
     }
 
-    componentWillMount() {
-      let props$ = K.combine(streamsToProps)
-        .throttle(20, {leading: false})
+    UNSAFE_componentWillMount () {
+      const props$ = K.combine(streamsToProps)
+        .throttle(20, { leading: false })
 
       this.sb = props$.observe(data => {
         this.setState(data)
       })
     }
 
-    componentWillUnmount() {
+    componentWillUnmount () {
       this.sb.unsubscribe()
     }
 
-    render() {
+    render () {
       return React.createElement(ComponentToWrap, R.merge(this.props, this.state), this.props.children)
     }
   }

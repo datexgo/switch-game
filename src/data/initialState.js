@@ -1,5 +1,5 @@
 
-const initialState = {
+export const initialState = {
   cells: [], // {label :: "off" | "WAIT" | "TAP", countdown :: Number | Null, index :: Number}
   level: 1,
   levelComplete: false,
@@ -9,5 +9,3 @@ const initialState = {
   score: 0,
   best: 0
 }
-
-export default initialState

@@ -1,4 +1,4 @@
-import * as R from "@paqmind/ramda"
+import * as R from '@paqmind/ramda'
 
 export const isGameInProgress = R.compose(
   R.all(R.equals(R.F())),

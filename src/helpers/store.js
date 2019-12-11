@@ -1,6 +1,6 @@
-import * as R from "@paqmind/ramda"
+import * as R from '@paqmind/ramda'
 
-function Store(action$) {
+function Store (action$) {
   return action$
     .scan((state, fn) => {
       if (R.is(Function, fn)) {
