@@ -18,27 +18,26 @@ import * as K from 'kefir'
 R.map2 = R.addIndex(R.map)
 
 export default function () {
-  let newCellTimer
+  let newCellTimer = null
+
+  const action$ = pool()
 
   const swipe$ = K.fromEvents(document.body, 'touchmove')
     .throttle(100)
     .map(_ => function swipe (state) {
       return R.cond([
-        [isLevelCompleted, R.pipe(startLevel, initCells, activateRandomCell)],
-        [R.complement(isGameInProgress), R.pipe(startGame, initCells, activateRandomCell)],
+        [isLevelCompleted, activateNextLevel],
+        [R.complement(isGameInProgress), beginNewGame],
         [R.T, R.always(state)]
       ])(state)
     })
 
-  const action$ = pool()
   const ticker$ = K.interval(1000).map(_ => function tick (state) {
-    const { score, best } = state
-
-    if (gameIsLose(state)) {
-      return R.merge(initCells(state), { gameIsLose: true, best: score > best ? score : best })
-    } else {
-      return R.over2('cells', R.map(R.pipe(switchWaitToTap, decNumber)), state)
-    }
+    return R.ifElse(
+      timeOut,
+      interruptGame,
+      updateCells
+    )(state)
   })
 
   const state$ = Store(K.merge([
@@ -49,6 +48,39 @@ export default function () {
   ]))
 
   // ------------------- game logic -------------------------------------
+
+  const beginNewGame = state => {
+    return R.pipe(
+      startGame,
+      initCells,
+      activateRandomCell
+    )(state)
+  }
+
+  const interruptGame = state => {
+    const { score, best } = state
+
+    return R.pipe(
+      initCells,
+      R.assoc('gameIsLose', R.T),
+      R.assoc('best', score > best ? score : best)
+    )(state)
+  }
+
+  const activateNextLevel = state => {
+    return R.pipe(
+      startLevel,
+      initCells,
+      activateRandomCell
+    )(state)
+  }
+
+  const updateCells = state => {
+    return R.over2(
+      'cells',
+      R.map(R.pipe(switchWaitToTap, decNumber))
+    )(state)
+  }
 
   function initCells (state) {
     const numberOfCells = getNumberOfCells(state.level)
@@ -106,22 +138,29 @@ export default function () {
 
     if (offCells.length) {
       const offCell = pickRandom(offCells)
-      cells = R.set2([offCell.index, 'countdown'],
-        5, R.set2([offCell.index, 'label'], 'WAIT', state.cells))
 
-      newCellTimer = setTimeout(() => action$.plug(activateRandomCell), 6000)
+      cells = R.pipe(
+        R.set2([offCell.index, 'countdown'], 5),
+        R.set2([offCell.index, 'label'], 'WAIT')
+      )(state.cells)
 
-      return {
-        ...state,
-        cells
-      }
+      clearTimeout(newCellTimer)
+      newCellTimer = setTimeout(() => {
+        action$.plug(activateRandomCell)
+      }, 6000)
+
+      return R.set2('cells', cells, state)
     } else {
       clearTimeout(newCellTimer)
-      return R.merge(initCells(state), { levelComplete: true })
+
+      return R.pipe(
+        initCells,
+        R.assoc('levelComplete', R.T())
+      )(state)
     }
   }
 
-  function gameIsLose (state) {
+  function timeOut (state) {
     let loseStatus = false
     state.cells.map(cell => {
       if (cell.countdown === 1 && cell.label === 'TAP') {
