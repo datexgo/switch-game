@@ -51,18 +51,12 @@ const GameMessage = (props) => {
                 : null
         }
       </div>
-      <button className="button"
-              onClick={state.gameIsLose || state.startingMessage ? props.startNewGame : props.startNextLevel}
-              style={getButtonStyle(props.size)}>
-        {state.gameIsLose || state.startingMessage ? "Start new game" : "Start next level"}
-      </button>
+
+      <div>
+        {state.gameIsLose || state.startingMessage ? "Swipe to start new game" : "Swipe to start next level"}
+      </div>
     </div>
   </div>
-}
-
-GameMessage.propTypes = {
-  startNewGame: PropTypes.func.isRequired,
-  startNextLevel: PropTypes.func.isRequired
 }
 
 export default GameMessage

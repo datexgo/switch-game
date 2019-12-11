@@ -13,9 +13,21 @@ let K = require('kefir')
 
 import { View, Panel, PanelHeader } from '@vkontakte/vkui'
 
+import { isGameInProgress, isLevelCompleted } from '../utils/utils'
+
 export default function() {
 
   let newCellTimer
+
+  let swipe$ = K.fromEvents(document.body, 'touchmove')
+    .throttle(100)
+    .map(_ => function swipe(state) {
+      return R.cond([
+        [isLevelCompleted, R.pipe(startLevel, initCells, activateRandomCell)],
+        [R.complement(isGameInProgress), R.pipe(startGame, initCells, activateRandomCell)],
+        [R.T, R.always(state)]
+      ])(state)
+  })
 
   let action$ = pool()
   let ticker$ = K.interval(1000).map(_ => function tick(state) {
@@ -31,7 +43,8 @@ export default function() {
   let state$ = Store(K.merge([
     K.constant(() => initialState),
     action$,
-    ticker$
+    ticker$,
+    swipe$
   ]))
 
   //------------------- game logic -------------------------------------
@@ -162,9 +175,7 @@ export default function() {
         <div className="game">
           <div>{`Level: ${state.level} — Score: ${state.score} — Best: ${state.best}`}</div>
 
-          <Grid startNewGame={startNewGameBtnHandler}
-                startNextLevel={startLevelBtnHandler}
-                state={state}
+          <Grid state={state}
                 onCellTap={onCellTap}/>
         </div>
       </Panel>
