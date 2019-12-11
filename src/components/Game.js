@@ -11,6 +11,8 @@ import getNumberOfCells from "../helpers/getNumberOfCells"
 R.map2 = R.addIndex(R.map)
 let K = require('kefir')
 
+import { View, Panel, PanelHeader } from '@vkontakte/vkui'
+
 export default function() {
 
   let newCellTimer
@@ -150,13 +152,23 @@ export default function() {
 
   let Component = connect(
     {state: state$},
-    ({state}) => <div className="game">
-      <div>{`Level: ${state.level} — Score: ${state.score} — Best: ${state.best}`}</div>
-      <Grid startNewGame={startNewGameBtnHandler}
-            startNextLevel={startLevelBtnHandler}
-            state={state}
-            onCellTap={onCellTap}/>
-    </div>
+    ({state}) => <View activePanel="main">
+      <Panel id="main" theme={'white'}>
+        <PanelHeader theme={'alternate'}
+                     noShadow={true}>
+          Switch
+        </PanelHeader>
+
+        <div className="game">
+          <div>{`Level: ${state.level} — Score: ${state.score} — Best: ${state.best}`}</div>
+
+          <Grid startNewGame={startNewGameBtnHandler}
+                startNextLevel={startLevelBtnHandler}
+                state={state}
+                onCellTap={onCellTap}/>
+        </div>
+      </Panel>
+    </View>
   )
 
   return <Component/>

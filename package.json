@@ -5,7 +5,7 @@
   "description": "swicth game implemented in reactive way",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --content-base ./public --open",
+    "dev": "webpack-dev-server --content-base ./public --open --host 0.0.0.0",
     "build": "react-scripts build",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
