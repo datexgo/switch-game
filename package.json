@@ -14,6 +14,9 @@
   "license": "ISC",
   "dependencies": {
     "@paqmind/ramda": "^0.4.0",
+    "@vkontakte/icons": "^1.12.0",
+    "@vkontakte/vk-connect": "^1.6.11",
+    "@vkontakte/vkui": "^2.34.1",
     "classnames": "^2.2.6",
     "kefir": "^3.8.6",
     "node-sass": "^4.13.0",
