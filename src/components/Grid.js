@@ -9,11 +9,10 @@ import getAvailableWindowSize from '../helpers/getAvailableWindowSize'
 
 const getStyle = () => {
   const size = getAvailableWindowSize()
+
   return {
     width: size,
-    height: size,
-    margin: '0 auto',
-    position: 'relative'
+    height: size
   }
 }
 

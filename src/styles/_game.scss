@@ -35,9 +35,33 @@ html, body, #app {
   color: $color-text;
 }
 
+.game-progress {
+  flex: 1;
+  width: 100%;
+  font-size: 24px;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  .circle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    // border: 2px solid $color-inactive-cell;
+    height: 70px;
+    width: 70px;
+    position: relative;
+  }
+}
+
 .grid {
   display: flex;
   flex-wrap: wrap;
+  margin: 10px auto;
+  position: relative;
 }
 
 .cell {

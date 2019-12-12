@@ -1,6 +1,7 @@
 import React from 'react'
 import Store from '../helpers/store'
 import Grid from './Grid'
+import GameProgress from './GameProgress'
 import { View, Panel, PanelHeader } from '@vkontakte/vkui'
 
 import { initialState } from '../data/initialState'
@@ -210,7 +211,7 @@ export default function () {
         </PanelHeader>
 
         <div className="game">
-          <div>{`Level: ${state.level} — Score: ${state.score} — Best: ${state.best}`}</div>
+          <GameProgress state={state} />
 
           <Grid state={state}
             onCellTap={onCellTap}/>
