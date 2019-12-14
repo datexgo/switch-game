@@ -124,44 +124,34 @@ html, body, #app {
 
 
 
-.circle {
+.progress-bar {
   min-width: 60px;
   min-height: 60px;
-  font-size: 18px;
-  text-transform: uppercase;
+  
   background: #fff;
-  color: #313133;
-  border: none;
-  border-radius: 1000px;
-  transition: all 0.3s ease-in-out 0s;
-  cursor: pointer;
-  outline: none;
   position: relative;
-  padding: 10px;
-  }
+  outline: none;
 
-.circle::after {
+  font-size: 24px;
+  padding: 10px;
+
+  border: none;
+  border-radius: 50%;
+  transition: all 0.3s ease-in-out 0s;  
+}
+
+.animation-circle {
   content: '';
-  width: 30px; height: 30px;
-  border-radius: 100%;
-  border: 6px solid green;
+  width: 60px;
+  height: 60px;
+  
   position: absolute;
   z-index: -1;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  animation: ring 1.5s infinite;
-}
 
-@keyframes ring {
-  0% {
-    width: 30px;
-    height: 30px;
-    opacity: 1;
-  }
-  100% {
-    width: 120px;
-    height: 120px;
-    opacity: 0;
-  }
+  border-radius: 100%;
+  border: 6px solid $color-inactive-cell;
+  
+  transform: translate(-50%, -50%);
 }
