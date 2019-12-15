@@ -1,22 +1,25 @@
 {
   "files": {
-    "main.css": "/switch-game/static/css/main.b7378bf6.chunk.css",
-    "main.js": "/switch-game/static/js/main.de964e18.chunk.js",
-    "main.js.map": "/switch-game/static/js/main.de964e18.chunk.js.map",
+    "main.css": "/switch-game/static/css/main.f14c29af.chunk.css",
+    "main.js": "/switch-game/static/js/main.4c7b8980.chunk.js",
+    "main.js.map": "/switch-game/static/js/main.4c7b8980.chunk.js.map",
     "runtime-main.js": "/switch-game/static/js/runtime-main.0f7d6049.js",
     "runtime-main.js.map": "/switch-game/static/js/runtime-main.0f7d6049.js.map",
-    "static/js/2.95ede276.chunk.js": "/switch-game/static/js/2.95ede276.chunk.js",
-    "static/js/2.95ede276.chunk.js.map": "/switch-game/static/js/2.95ede276.chunk.js.map",
+    "static/css/2.2cfa1b23.chunk.css": "/switch-game/static/css/2.2cfa1b23.chunk.css",
+    "static/js/2.65c042fc.chunk.js": "/switch-game/static/js/2.65c042fc.chunk.js",
+    "static/js/2.65c042fc.chunk.js.map": "/switch-game/static/js/2.65c042fc.chunk.js.map",
     "index.html": "/switch-game/index.html",
-    "precache-manifest.04908484ae22cadffab7cf52fd6466f2.js": "/switch-game/precache-manifest.04908484ae22cadffab7cf52fd6466f2.js",
+    "precache-manifest.79290733804961fd0bd0f155ebbcb49c.js": "/switch-game/precache-manifest.79290733804961fd0bd0f155ebbcb49c.js",
     "service-worker.js": "/switch-game/service-worker.js",
-    "static/css/main.b7378bf6.chunk.css.map": "/switch-game/static/css/main.b7378bf6.chunk.css.map",
-    "static/js/2.95ede276.chunk.js.LICENSE": "/switch-game/static/js/2.95ede276.chunk.js.LICENSE"
+    "static/css/2.2cfa1b23.chunk.css.map": "/switch-game/static/css/2.2cfa1b23.chunk.css.map",
+    "static/css/main.f14c29af.chunk.css.map": "/switch-game/static/css/main.f14c29af.chunk.css.map",
+    "static/js/2.65c042fc.chunk.js.LICENSE": "/switch-game/static/js/2.65c042fc.chunk.js.LICENSE"
   },
   "entrypoints": [
     "static/js/runtime-main.0f7d6049.js",
-    "static/js/2.95ede276.chunk.js",
-    "static/css/main.b7378bf6.chunk.css",
-    "static/js/main.de964e18.chunk.js"
+    "static/css/2.2cfa1b23.chunk.css",
+    "static/js/2.65c042fc.chunk.js",
+    "static/css/main.f14c29af.chunk.css",
+    "static/js/main.4c7b8980.chunk.js"
   ]
 }
