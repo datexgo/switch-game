@@ -5,11 +5,12 @@ import { circleAnimationFrame, circleAnimationTiming } from '../utils/constants'
 class ProgressBar extends Component {
   constructor (props) {
     super(props)
+    this.animation = null
     this.circle = React.createRef()
   }
 
   animate () {
-    this.circle.current.animate(
+    this.animation = this.circle.current.animate(
       circleAnimationFrame,
       circleAnimationTiming
     )
