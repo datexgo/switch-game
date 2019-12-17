@@ -3,10 +3,11 @@ import Store from '../helpers/store'
 import Grid from './Grid'
 import ProgressBar from './ProgressBar'
 import { View, Panel, PanelHeader } from '@vkontakte/vkui'
+import connect from '@vkontakte/vk-connect'
 
 import { initialState } from '../data/initialState'
 import { isGameInProgress, isLevelCompleted, getBestScoreFromVkStorage } from '../utils/utils'
-import { connect } from '../connect'
+import { connect as attach } from '../connect'
 import { pool } from '../helpers/pool'
 
 import pickRandom from '../helpers/pickRandom'
@@ -220,7 +221,7 @@ export default function () {
 
   // --------------------------------------------------------------------
 
-  const Component = connect(
+  const Component = attach(
     { state: state$ },
     ({ state }) => <View activePanel="main">
       <Panel id="main" theme={'white'}>
