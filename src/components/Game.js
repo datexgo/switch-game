@@ -5,7 +5,7 @@ import ProgressBar from './ProgressBar'
 import { View, Panel, PanelHeader } from '@vkontakte/vkui'
 
 import { initialState } from '../data/initialState'
-import { isGameInProgress, isLevelCompleted } from '../utils/utils'
+import { isGameInProgress, isLevelCompleted, getBestScoreFromVkStorage } from '../utils/utils'
 import { connect } from '../connect'
 import { pool } from '../helpers/pool'
 
@@ -22,6 +22,18 @@ export default function () {
   let newCellTimer = null
 
   const action$ = pool()
+
+  const storage$ = K.fromPromise(
+    connect.sendPromise('VKWebAppStorageGet', {
+      keys: ['switchBest']
+    })
+  )
+
+  storage$.onValue(result => {
+    action$.plug(state => {
+      return R.set2('best', getBestScoreFromVkStorage(result), state)
+    })
+  })
 
   const swipe$ = K.fromEvents(document.body, 'touchmove')
     .throttle(100)
@@ -60,11 +72,17 @@ export default function () {
 
   const interruptGame = state => {
     const { score, best } = state
+    const bestScore = R.max(score, best)
+
+    connect.send('VKWebAppStorageSet', {
+      key: 'switchBest',
+      value: String(bestScore)
+    })
 
     return R.pipe(
       initCells,
       R.assoc('gameIsLose', R.T),
-      R.assoc('best', score > best ? score : best)
+      R.assoc('best', bestScore)
     )(state)
   }
 

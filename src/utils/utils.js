@@ -15,3 +15,11 @@ export const isLevelCompleted = R.propEq(
   'levelComplete',
   R.T()
 )
+
+export const getBestScoreFromVkStorage = R.pipe(
+  R.prop('keys'),
+  R.find(R.propEq('key', 'switchBest')),
+  R.prop('value'),
+  Number,
+  R.defaultTo(0)
+)
