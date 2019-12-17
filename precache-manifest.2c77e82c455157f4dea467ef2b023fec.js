@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "bb74523e78f3bf63d6be958c858235b4",
+    "revision": "dfa55fb50000f7b24883179a224a93b2",
     "url": "/switch-game/index.html"
   },
   {
-    "revision": "e6f0869891c45d4720b0",
+    "revision": "0e8475c263c292a2a559",
     "url": "/switch-game/static/css/2.2cfa1b23.chunk.css"
   },
   {
-    "revision": "c4d58ab6e94207fb3a74",
+    "revision": "4fc04c9a0506f0e0073d",
     "url": "/switch-game/static/css/main.f14c29af.chunk.css"
   },
   {
-    "revision": "e6f0869891c45d4720b0",
-    "url": "/switch-game/static/js/2.00cef916.chunk.js"
+    "revision": "0e8475c263c292a2a559",
+    "url": "/switch-game/static/js/2.c26ab538.chunk.js"
   },
   {
     "revision": "68194534981a47be39e932fc2acb9406",
-    "url": "/switch-game/static/js/2.00cef916.chunk.js.LICENSE"
+    "url": "/switch-game/static/js/2.c26ab538.chunk.js.LICENSE"
   },
   {
-    "revision": "c4d58ab6e94207fb3a74",
-    "url": "/switch-game/static/js/main.d2cbf5aa.chunk.js"
+    "revision": "4fc04c9a0506f0e0073d",
+    "url": "/switch-game/static/js/main.816ba6d3.chunk.js"
   },
   {
     "revision": "b30a7012a11ab3cb5a4c",
