@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/switch-game/static/css/main.f14c29af.chunk.css",
-    "main.js": "/switch-game/static/js/main.5b034ca6.chunk.js",
-    "main.js.map": "/switch-game/static/js/main.5b034ca6.chunk.js.map",
+    "main.js": "/switch-game/static/js/main.c32ca0ba.chunk.js",
+    "main.js.map": "/switch-game/static/js/main.c32ca0ba.chunk.js.map",
     "runtime-main.js": "/switch-game/static/js/runtime-main.0f7d6049.js",
     "runtime-main.js.map": "/switch-game/static/js/runtime-main.0f7d6049.js.map",
     "static/css/2.2cfa1b23.chunk.css": "/switch-game/static/css/2.2cfa1b23.chunk.css",
     "static/js/2.d49a675e.chunk.js": "/switch-game/static/js/2.d49a675e.chunk.js",
     "static/js/2.d49a675e.chunk.js.map": "/switch-game/static/js/2.d49a675e.chunk.js.map",
     "index.html": "/switch-game/index.html",
-    "precache-manifest.73a00a3df01e138decf76dfb53013ae1.js": "/switch-game/precache-manifest.73a00a3df01e138decf76dfb53013ae1.js",
+    "precache-manifest.8681040f8efa755b883703a05856d99c.js": "/switch-game/precache-manifest.8681040f8efa755b883703a05856d99c.js",
     "service-worker.js": "/switch-game/service-worker.js",
     "static/css/2.2cfa1b23.chunk.css.map": "/switch-game/static/css/2.2cfa1b23.chunk.css.map",
     "static/css/main.f14c29af.chunk.css.map": "/switch-game/static/css/main.f14c29af.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.2cfa1b23.chunk.css",
     "static/js/2.d49a675e.chunk.js",
     "static/css/main.f14c29af.chunk.css",
-    "static/js/main.5b034ca6.chunk.js"
+    "static/js/main.c32ca0ba.chunk.js"
   ]
 }

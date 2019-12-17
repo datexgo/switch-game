@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "fd98c8423406797e15f01417fa42ea3e",
+    "revision": "6ac7e10498aa04b2022acc15745e8793",
     "url": "/switch-game/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/switch-game/static/css/2.2cfa1b23.chunk.css"
   },
   {
-    "revision": "815cb40e490ad042d2b5",
+    "revision": "fbf3a7e1eb130fe13bfb",
     "url": "/switch-game/static/css/main.f14c29af.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/switch-game/static/js/2.d49a675e.chunk.js.LICENSE"
   },
   {
-    "revision": "815cb40e490ad042d2b5",
-    "url": "/switch-game/static/js/main.5b034ca6.chunk.js"
+    "revision": "fbf3a7e1eb130fe13bfb",
+    "url": "/switch-game/static/js/main.c32ca0ba.chunk.js"
   },
   {
     "revision": "b30a7012a11ab3cb5a4c",
