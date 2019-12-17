@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/switch-game/static/css/main.f14c29af.chunk.css",
-    "main.js": "/switch-game/static/js/main.13f729d5.chunk.js",
-    "main.js.map": "/switch-game/static/js/main.13f729d5.chunk.js.map",
+    "main.js": "/switch-game/static/js/main.ffaf4b03.chunk.js",
+    "main.js.map": "/switch-game/static/js/main.ffaf4b03.chunk.js.map",
     "runtime-main.js": "/switch-game/static/js/runtime-main.0f7d6049.js",
     "runtime-main.js.map": "/switch-game/static/js/runtime-main.0f7d6049.js.map",
     "static/css/2.2cfa1b23.chunk.css": "/switch-game/static/css/2.2cfa1b23.chunk.css",
-    "static/js/2.62ddf596.chunk.js": "/switch-game/static/js/2.62ddf596.chunk.js",
-    "static/js/2.62ddf596.chunk.js.map": "/switch-game/static/js/2.62ddf596.chunk.js.map",
+    "static/js/2.07fbaadb.chunk.js": "/switch-game/static/js/2.07fbaadb.chunk.js",
+    "static/js/2.07fbaadb.chunk.js.map": "/switch-game/static/js/2.07fbaadb.chunk.js.map",
     "index.html": "/switch-game/index.html",
-    "precache-manifest.68e4475fbc4a9dc53b32d07b0e11b263.js": "/switch-game/precache-manifest.68e4475fbc4a9dc53b32d07b0e11b263.js",
+    "precache-manifest.7163eb541439d49c4fd7bcbae52acf4f.js": "/switch-game/precache-manifest.7163eb541439d49c4fd7bcbae52acf4f.js",
     "service-worker.js": "/switch-game/service-worker.js",
     "static/css/2.2cfa1b23.chunk.css.map": "/switch-game/static/css/2.2cfa1b23.chunk.css.map",
     "static/css/main.f14c29af.chunk.css.map": "/switch-game/static/css/main.f14c29af.chunk.css.map",
-    "static/js/2.62ddf596.chunk.js.LICENSE": "/switch-game/static/js/2.62ddf596.chunk.js.LICENSE"
+    "static/js/2.07fbaadb.chunk.js.LICENSE": "/switch-game/static/js/2.07fbaadb.chunk.js.LICENSE"
   },
   "entrypoints": [
     "static/js/runtime-main.0f7d6049.js",
     "static/css/2.2cfa1b23.chunk.css",
-    "static/js/2.62ddf596.chunk.js",
+    "static/js/2.07fbaadb.chunk.js",
     "static/css/main.f14c29af.chunk.css",
-    "static/js/main.13f729d5.chunk.js"
+    "static/js/main.ffaf4b03.chunk.js"
   ]
 }
