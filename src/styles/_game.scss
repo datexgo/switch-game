@@ -34,7 +34,7 @@ html, body, #app {
   user-select: none;
   color: $color-text;
 
-  background-image: url('../images/imageedit_4_5721586732.png');
+  background-image: url('../images/game-background.jpg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -54,8 +54,6 @@ html, body, #app {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    // border: 2px solid $color-inactive-cell;
     height: 70px;
     width: 70px;
     position: relative;
@@ -84,6 +82,7 @@ html, body, #app {
   color: $color-text-cell;
   margin: .5vw .5vw;
   background: $color-inactive-cell;
+  opacity: .5;
 }
 
 .rules {
@@ -113,9 +112,6 @@ html, body, #app {
   top: 0;
   left: 0;
   z-index: 1;
-
-  background-image: url('../images/back.gif');
-  border-radius: 2%;
 }
 
 .hide-message {
@@ -124,10 +120,12 @@ html, body, #app {
 
 .TAP {
   background: $color-tap-cell;
+  opacity: 1;
 }
 
 .WAIT {
   background: $color-wait-cell;
+  opacity: 1;
 }
 
 
