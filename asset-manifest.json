@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/switch-game/static/css/main.24792a52.chunk.css",
-    "main.js": "/switch-game/static/js/main.307f89e6.chunk.js",
-    "main.js.map": "/switch-game/static/js/main.307f89e6.chunk.js.map",
+    "main.css": "/switch-game/static/css/main.500adcdb.chunk.css",
+    "main.js": "/switch-game/static/js/main.e5f1e7ad.chunk.js",
+    "main.js.map": "/switch-game/static/js/main.e5f1e7ad.chunk.js.map",
     "runtime-main.js": "/switch-game/static/js/runtime-main.0f7d6049.js",
     "runtime-main.js.map": "/switch-game/static/js/runtime-main.0f7d6049.js.map",
     "static/css/2.2cfa1b23.chunk.css": "/switch-game/static/css/2.2cfa1b23.chunk.css",
     "static/js/2.d49a675e.chunk.js": "/switch-game/static/js/2.d49a675e.chunk.js",
     "static/js/2.d49a675e.chunk.js.map": "/switch-game/static/js/2.d49a675e.chunk.js.map",
     "index.html": "/switch-game/index.html",
-    "precache-manifest.07bca4df959aecb1875f5857a07349a4.js": "/switch-game/precache-manifest.07bca4df959aecb1875f5857a07349a4.js",
+    "precache-manifest.7fc0467f1aa18d680b65683edeefc58a.js": "/switch-game/precache-manifest.7fc0467f1aa18d680b65683edeefc58a.js",
     "service-worker.js": "/switch-game/service-worker.js",
     "static/css/2.2cfa1b23.chunk.css.map": "/switch-game/static/css/2.2cfa1b23.chunk.css.map",
-    "static/css/main.24792a52.chunk.css.map": "/switch-game/static/css/main.24792a52.chunk.css.map",
+    "static/css/main.500adcdb.chunk.css.map": "/switch-game/static/css/main.500adcdb.chunk.css.map",
     "static/js/2.d49a675e.chunk.js.LICENSE": "/switch-game/static/js/2.d49a675e.chunk.js.LICENSE",
-    "static/media/main.scss": "/switch-game/static/media/background.bfee6ea6.gif"
+    "static/media/main.scss": "/switch-game/static/media/game_background.96466e5d.png"
   },
   "entrypoints": [
     "static/js/runtime-main.0f7d6049.js",
     "static/css/2.2cfa1b23.chunk.css",
     "static/js/2.d49a675e.chunk.js",
-    "static/css/main.24792a52.chunk.css",
-    "static/js/main.307f89e6.chunk.js"
+    "static/css/main.500adcdb.chunk.css",
+    "static/js/main.e5f1e7ad.chunk.js"
   ]
 }
