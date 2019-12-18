@@ -5,8 +5,12 @@ $global-font: 'SFProText', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans
 $color-primary: #0000ff;
 $color-primary-light: #1E90FF;
 
-$color-tap-cell: #008000;
-$color-wait-cell: #ff0000;
+// $color-tap-cell: #008000;
+// $color-wait-cell: #ff0000;
+
+$color-tap-cell: -webkit-gradient(linear, left top, left bottom, from(#369ff1), to(#41dba0)) fixed;
+$color-wait-cell: -webkit-gradient(linear, left top, left bottom, from(#ff137c), to(#ff9025)) fixed;
+
 $color-inactive-cell: #dcdcdc;
 $color-text-cell: #fff;
 

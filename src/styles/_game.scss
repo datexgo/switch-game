@@ -78,8 +78,8 @@ html, body, #app {
   right: 0;
   color: $color-text-cell;
   margin: .5vw .5vw;
-  // background-color: $color-inactive-cell;
-  background-image: url('../images/back.gif');
+  background-color: $color-inactive-cell;
+  // background-image: url('../images/back.gif');
 }
 
 .rules {
@@ -116,11 +116,11 @@ html, body, #app {
 }
 
 .TAP {
-  background-color: $color-tap-cell;
+  background: $color-tap-cell;
 }
 
 .WAIT {
-  background-color: $color-wait-cell;
+  background: $color-wait-cell;
 }
 
 
