@@ -78,7 +78,8 @@ html, body, #app {
   right: 0;
   color: $color-text-cell;
   margin: .5vw .5vw;
-  background-color: $color-inactive-cell;
+  // background-color: $color-inactive-cell;
+  background-image: url('../images/back.gif');
 }
 
 .rules {
