@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/switch-game/precache-manifest.7fc0467f1aa18d680b65683edeefc58a.js"
+  "/switch-game/precache-manifest.9872602f6d1483e746ca0a613158508b.js"
 );
 
 self.addEventListener('message', (event) => {
