@@ -225,7 +225,7 @@ export default function () {
     { state: state$ },
     ({ state }) => <View activePanel="main">
       <Panel id="main" theme={'white'}>
-        <PanelHeader theme={'alternate'} noShadow={true}>
+        <PanelHeader transparent={true} noShadow={true}>
           Switch
         </PanelHeader>
 
