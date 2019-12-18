@@ -17,7 +17,7 @@ const GameMessage = (props) => {
     'show-message': state.gameIsLose || state.levelComplete || state.startingMessage,
     'hide-message': !state.gameIsLose && !state.levelComplete && !state.startingMessage
   })} style={getStyle(size)}>
-    <div>
+    <div className={'message'}>
       <div>
         {
           state.gameIsLose
@@ -28,22 +28,22 @@ const GameMessage = (props) => {
                 ? 'How to play?'
                 : null
         }
-      </div>
 
-      <div>
-        {
-          state.gameIsLose
-            ? `Score: ${state.score}`
-            : state.levelComplete
-              ? 'Get ready!'
-              : state.startingMessage
-                ? <div className="rules">
-                  <div>{'Tap a tile when it turns green.'}</div>
-                  <div>{'You win when no more tile is available.'}</div>
-                  <div>{"Don't miss any or the game ends!"}</div>
-                </div>
-                : null
-        }
+        <div>
+          {
+            state.gameIsLose
+              ? `Score: ${state.score}`
+              : state.levelComplete
+                ? 'Get ready!'
+                : state.startingMessage
+                  ? <div className="rules">
+                    <div>{'Tap a tile when it turns green.'}</div>
+                    <div>{'You win when no more tile is available.'}</div>
+                    <div>{"Don't miss any or the game ends!"}</div>
+                  </div>
+                  : null
+          }
+        </div>
       </div>
 
       <div>

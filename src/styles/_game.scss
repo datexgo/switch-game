@@ -112,6 +112,18 @@ html, body, #app {
   top: 0;
   left: 0;
   z-index: 1;
+
+  .message {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    text-shadow: 0 0 2px #fff,
+      0 0 10px $color-text-shadow,
+      0 0 20px $color-text-shadow;
+  }
 }
 
 .hide-message {
@@ -144,7 +156,11 @@ html, body, #app {
 
   border: none;
   border-radius: 50%;
-  transition: all 0.3s ease-in-out 0s;  
+  transition: all 0.3s ease-in-out 0s;
+
+  text-shadow: 0 0 2px #fff,
+    0 0 10px $color-text-shadow,
+    0 0 20px $color-text-shadow;
 }
 
 .animation-circle {
