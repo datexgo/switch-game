@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
+import { cellText } from '../utils/utils'
 
 const getStyle = (size) => ({
   width: `${size}px`,
@@ -18,7 +19,7 @@ const Cell = (props) => {
       WAIT: cell.label === 'WAIT',
       TAP: cell.label === 'TAP'
     })}>
-      <div>{cell.label === 'off' ? null : cell.label}</div>
+      <div>{cell.label === 'off' ? null : cellText(cell)}</div>
       <div>{cell.countdown == null ? null : cell.countdown}</div>
     </div>
   </div>

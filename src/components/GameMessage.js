@@ -21,33 +21,42 @@ const GameMessage = (props) => {
       <div>
         {
           state.gameIsLose
-            ? 'You lose'
+            ? <div className={'rules-header'}>Попробуй снова</div>
             : state.levelComplete
-              ? `Level ${state.level} complete!`
+              ? <div className={'rules-header'}>Уровень { state.level } пройден</div>
               : state.startingMessage
-                ? 'How to play?'
+                ? <div className={'rules-header'}>Правила</div>
                 : null
         }
 
         <div>
           {
             state.gameIsLose
-              ? `Score: ${state.score}`
+              ? `Счет: ${state.score}`
               : state.levelComplete
-                ? 'Get ready!'
+                ? <div className={'get-ready'}>Приготовься!</div>
                 : state.startingMessage
                   ? <div className="rules">
-                    <div>{'Tap a tile when it turns green.'}</div>
-                    <div>{'You win when no more tile is available.'}</div>
-                    <div>{"Don't miss any or the game ends!"}</div>
+                    <div>{'Жми на бирюзовые ячейки.'}</div>
+                    <div>{'Уровень завершится, когда не останется свободных клеток.'}</div>
+                    <div>{'Не упусти ни одной!'}</div>
                   </div>
                   : null
           }
         </div>
       </div>
 
-      <div>
-        {state.gameIsLose || state.startingMessage ? 'Swipe to start new game' : 'Swipe to start next level'}
+      <div className={'swipe'}>
+        <div className={'swipe-header'}>
+          Свайпни
+        </div>
+
+        <div className={'swipe-tip'}>
+          {state.gameIsLose || state.startingMessage
+            ? 'и играй'
+            : 'и продолжи'
+          }
+        </div>
       </div>
     </div>
   </div>

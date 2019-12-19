@@ -231,13 +231,13 @@ export default function () {
 
         <div className="game">
           <div className="game-progress">
-            <ProgressBar label={'Level'}
+            <ProgressBar label={'Уровень'}
               value={state.level} />
 
-            <ProgressBar label={'Score'}
+            <ProgressBar label={'Счет'}
               value={state.score} />
 
-            <ProgressBar label={'Best'}
+            <ProgressBar label={'Топ'}
               value={state.best} />
           </div>
 

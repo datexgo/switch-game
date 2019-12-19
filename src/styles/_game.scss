@@ -21,6 +21,13 @@ html, body, #app {
   font-family: $global-font;
 }
 
+html {
+  overflow: hidden;
+}
+body {
+  overflow: auto;
+}
+
 #app {
   display: flex;
   justify-content: center;
@@ -89,22 +96,13 @@ html, body, #app {
 }
 
 .rules {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
   font-size: .4em;
-}
-
-.button {
-  background-color: $color-primary;
-  color: $color-button-text;
-  border-radius: 3%;
-  text-decoration: none;
-  border: none;
-  box-shadow: none;
-  cursor: pointer;
-  outline: 0 !important;
-}
-
-.button:hover {
-  background-color: $color-primary-light;
 }
 
 .show-message {
@@ -126,7 +124,25 @@ html, body, #app {
     text-shadow: 0 0 2px #fff,
       0 0 10px $color-text-shadow,
       0 0 20px $color-text-shadow;
+
+    .swipe {
+      .swipe-header {
+        text-transform: uppercase;
+        letter-spacing: .1em;
+        font-size: .6em;
+      }
+
+      .swipe-tip {
+        font-size: .4em;
+      }
+    }
   }
+}
+
+.rules-header {
+  font-size: .8em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
 }
 
 .hide-message {
@@ -143,7 +159,9 @@ html, body, #app {
   opacity: 1;
 }
 
-
+.get-ready {
+  font-size: .6em;
+}
 
 .progress-bar {
   min-width: 60px;

@@ -23,3 +23,7 @@ export const getBestScoreFromVkStorage = R.pipe(
   Number,
   R.defaultTo(0)
 )
+
+export const cellText = cell => {
+  return cell.label === 'WAIT' ? 'ЖДИ' : 'ЖМИ'
+}
